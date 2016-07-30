@@ -32,7 +32,7 @@ module.exports = (function () {
                     else
                     {   user = {id:user.id,name:user.name,type:user.type};
                         let token = jwt.sign(user, secret, {
-                            expiresIn: "1h" // expires 1 hour in
+                            expiresIn: "1y" // expires 1 year in
                         });
                         res.cookie('Authorization',token,{ domain: '127.0.0.1', path: '/' });
                         res.status(200).json({
@@ -43,6 +43,34 @@ module.exports = (function () {
                     }
                 }
             });
+
+        },
+        sendUserByToken:function(req,res)
+        {
+            let token = req.body.token;
+            if (token) {
+                jwt.verify(token, secret, function (err, decoded) {
+                    if (err) {
+                        return res.status(401).json({err:'Bad token provided.'});
+                    } else {
+                        // if everything is good, save to request for use in other routes
+
+                        res.status(200).send({
+                            error:false,
+                            message:"",
+                            user:decoded
+                        });
+                    }
+                });
+
+            } else {
+
+                res.status(401).send({
+                    error:true,
+                    message:"need auth"
+                });
+
+            }
 
         },
         checkToken: function (req, res, next) {

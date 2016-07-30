@@ -10,6 +10,7 @@ let dictionaryCtrl = require('./controllers/dictionaryCtrl');
 
 
 router.post('/api/login',loginCtrl.login);
+router.post('/api/token',loginCtrl.sendUserByToken);
 
 router.use(loginCtrl.checkToken);
 
