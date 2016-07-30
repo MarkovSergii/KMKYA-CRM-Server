@@ -3,11 +3,20 @@
  */
 "use strict";
 
-module.exports = {
-    getUserBy: (params,cb) =>{
-        let user = {id:12,name:"Serg"};
+let models = require('./models');
 
-        cb(null,user);
+
+module.exports = {
+    getUserBy: (params,callback) =>{
+
+
+       models.Users.findOne({ where: params })
+           .then(function(user) {
+                callback(null,user)
+           })
+           .catch(function(err){
+                callback(err)
+           });
     }
 
 };

@@ -6,30 +6,42 @@
 let userModel = require('../models/userModel');
 let jwt = require('jsonwebtoken');
 let secret = require('../config').secret;
-
+let password_service = require('../services/password');
 
 module.exports = (function () {
     return {
         login: function (req, res) {
 
-            userModel.getUserBy({email: req.body.email, password: req.body.password}, function (err, user) {
-                if (err) {
+            userModel.getUserBy({email: req.body.email, password: password_service.encode_password(req.body.password)}, function (err, user) {
+
+                    if (err) {
                     res.json({
-                        message: err.msg,
-                        token: ''
+                        error: true,
+                        message: err.msg
                     });
                 }
                 else {
 
-                    let token = jwt.sign(user, secret, {
-                        expiresIn: "1h" // expires 1 hour in
-                    });
-                    res.cookie('Authorization',token,{ domain: '127.0.0.1', path: '/' });
-                    res.status(200).json({token:token});
-
+                    if (!user)
+                    {
+                        res.json({
+                            error:true,
+                            message: 'User not found'
+                        });
+                    }
+                    else
+                    {   user = {id:user.id,name:user.name,type:user.type};
+                        let token = jwt.sign(user, secret, {
+                            expiresIn: "1h" // expires 1 hour in
+                        });
+                        res.cookie('Authorization',token,{ domain: '127.0.0.1', path: '/' });
+                        res.status(200).json({
+                            error:false,
+                            token:token,
+                            user:user
+                        });
+                    }
                 }
-
-
             });
 
         },

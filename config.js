@@ -4,12 +4,13 @@
 "use strict";
 
 module.exports.secret = 'some_sekret!';
+module.exports.salt = '_solt';
 
 
 module.exports.db_config = {
-    db : '',
-    user : '',
-    password : '',
+    db : 'kmkya_crm',
+    user : 'root',
+    password : '12345',
     mysql : {
         host: '93.171.158.114',
         dialect: 'mysql',

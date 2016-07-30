@@ -9,7 +9,7 @@ let loginCtrl = require('./controllers/loginCtrl');
 let dictionaryCtrl = require('./controllers/dictionaryCtrl');
 
 
-router.post('/api/user/login',loginCtrl.login);
+router.post('/api/login',loginCtrl.login);
 
 router.use(loginCtrl.checkToken);
 
