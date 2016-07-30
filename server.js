@@ -5,7 +5,9 @@
 
 let app = require('./app');
 
-
-app.listen(process.env.PORT || 3000, process.env.IP || 'localhost',function(){
-    console.log('Server started at port 3000');
+app.listen(3000, '93.171.158.114',function(){
+    console.log('Server started on 93.171.158.114 at port 3000');
+});
+app.listen(3000, 'localhost',function(){
+    console.log('Server started on localhost at port 3000');
 });
