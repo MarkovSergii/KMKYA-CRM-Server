@@ -25,6 +25,6 @@ app.use(CookieParser());
 
 
 app.use(route);
-
+app.use(express.static(__dirname+'/public'));
 
 module.exports = app;

@@ -26,11 +26,30 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Direction_category: sequelize.define('direction_category', {
+
+        name_ru: {
+            type: Sequelize.STRING
+        },
+        logo:{
+            type: Sequelize.STRING
+        },
+        order_by: {
+            type: Sequelize.INTEGER
+        }        
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
+    
+    
+    
+    
 
 
 };
 
 //obj.Users.sync({force: true});
+//obj.Direction_category.sync({force: true});
 
 module.exports = obj;
