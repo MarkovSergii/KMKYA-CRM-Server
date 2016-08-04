@@ -21,7 +21,6 @@ var upload = multer({ storage: storage });
 
 let loginCtrl = require('./controllers/loginCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
-let dictionaryCtrl = require('./controllers/dictionaryCtrl');
 
 
 router.post('/api/login',loginCtrl.login);
@@ -29,14 +28,14 @@ router.post('/api/token',loginCtrl.sendUserByToken);
 
 router.use(loginCtrl.checkToken);
 
-// to this area have access only token auth users
+// to this area have access only token auth users 
 //--------------------------------------------------------------------------------------------------------------------
 //directionCategory
-router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAll);
-router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectBy);
-router.post('/api/dictionary/exhibitionCategory/insert',upload.single('logo'),directionCategoryCtrl.insert);
-router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.delete);
-router.post('/api/dictionary/exhibitionCategory/:id/update',upload.single('logo'),directionCategoryCtrl.update);
+router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAllCategories);
+router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectCategoryByID);
+router.post('/api/dictionary/exhibitionCategory/insert',upload.single('logo'),directionCategoryCtrl.insertCategory);
+router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.deleteCategory);
+router.post('/api/dictionary/exhibitionCategory/:id/update',upload.single('logo'),directionCategoryCtrl.updateCategory);
 //--------------------------------------------------------------------------------------------------------------------
 
 

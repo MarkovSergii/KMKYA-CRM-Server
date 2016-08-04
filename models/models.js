@@ -29,7 +29,7 @@ let obj = {
     }),
     Direction_category: sequelize.define('direction_category', {
 
-        name_ru: {
+        name: {
             type: Sequelize.STRING
         },
         logo:{
