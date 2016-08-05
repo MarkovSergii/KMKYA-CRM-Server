@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(CookieParser());
 
-
+app.use('/filestore/public',express.static(__dirname + '/filestore/public'));
 app.use(route);
-app.use(express.static(__dirname+'/public'));
+app.use('/filestore/auth',express.static(__dirname + '/filestore/auth'));
 
 module.exports = app;

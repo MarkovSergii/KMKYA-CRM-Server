@@ -7,9 +7,18 @@ let express = require('express');
 let router = express.Router();
 let multer  = require('multer');
 
-let storage = multer.diskStorage({
+let storage_public = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/public/filestore/')
+        cb(null, '/filestore/public')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now())
+    }
+});
+
+let storage_auth = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/filestore/auth/')
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname + '-' + Date.now())
@@ -17,7 +26,8 @@ let storage = multer.diskStorage({
 });
 
 
-var upload = multer({ storage: storage });
+var upload_public = multer({ storage: storage_public });
+var upload_auth = multer({ storage: storage_auth });
 
 let loginCtrl = require('./controllers/loginCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
@@ -33,9 +43,9 @@ router.use(loginCtrl.checkToken);
 //directionCategory
 router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAllCategories);
 router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectCategoryByID);
-router.post('/api/dictionary/exhibitionCategory/insert',upload.single('logo'),directionCategoryCtrl.insertCategory);
+router.post('/api/dictionary/exhibitionCategory/insert',upload_public.single('logo'),directionCategoryCtrl.insertCategory);
 router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.deleteCategory);
-router.post('/api/dictionary/exhibitionCategory/:id/update',upload.single('logo'),directionCategoryCtrl.updateCategory);
+router.post('/api/dictionary/exhibitionCategory/:id/update',upload_public.single('logo'),directionCategoryCtrl.updateCategory);
 //--------------------------------------------------------------------------------------------------------------------
 
 

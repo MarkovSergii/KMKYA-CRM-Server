@@ -74,7 +74,7 @@ module.exports = (function () {
 
         },
         checkToken: function (req, res, next) {
-            let token = req.headers['authorization'] || 0;
+            let token = req.headers['authorization'] || req.cookies['token'] || 0 ;
             if (token) {
                 jwt.verify(token, secret, function (err, decoded) {
                     if (err) {
