@@ -6,6 +6,9 @@
 module.exports.secret = 'some_sekret!';
 module.exports.salt = '_solt';
 
+module.exports.public_path = '/filestore/public/';
+module.exports.auth_path = '/filestore/auth/';
+
 
 module.exports.db_config = {
     db : 'kmkya_crm',
