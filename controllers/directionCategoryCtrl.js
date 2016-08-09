@@ -8,7 +8,8 @@
 
     var insertCategory = function(req,res)
     {
-        models.Direction_category.create({name:req.body.name,logo:config.public_path+req.file.filename})
+        var logo = req.file.filename ? config.public_path+req.file.filename : null;
+        models.Direction_category.create({name:req.body.name,logo:logo})
             .then(function(direction_categories) {
                 models.Direction_category.update({"order_by":direction_categories.id},{where:{id:direction_categories.id}})
                     .then(function(){
@@ -25,9 +26,17 @@
     };
     var updateCategory = function(req,res)
     {
-        models.Direction_category.update(req.direction_categories,{where:{id:req.direction_categories.id}})
+        var logo = ((req.file) && (req.file.filename)) ? config.public_path+req.file.filename : req.body.logo;
+        models.Direction_category.update({name:req.body.name,logo:logo},{where:{id:req.params.id}})
             .then(function(direction_categories) {
-                res.send({error:false,data:direction_categories});
+                models.Direction_category.findOne({where:{id:req.params.id}})
+                    .then(function(updated){
+                        res.send({error:false,data:updated});
+                    })
+                    .catch(function(error){
+                        res.send({error:error});
+                    });
+
             })
             .catch(function(error){
                 res.send({error:error});
