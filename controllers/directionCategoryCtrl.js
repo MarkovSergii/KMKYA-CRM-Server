@@ -64,13 +64,21 @@
     };
     var deleteCategory = function(req,res)
     {
-        models.Direction_category.destroy({where: {id: req.params.id}})
-            .then(function() {
-                res.send({error:false});
+        models.Exhibitions.update({direction_category_id:req.body.direction_category_id},{where:{id:req.params.id}})
+            .then(function(){
+                models.Direction_category.destroy({where: {id: req.params.id}})
+                    .then(function() {
+                        res.send({error:false});
+                    })
+                    .catch(function(error){
+                        res.send({error:error});
+                    });
             })
             .catch(function(error){
                 res.send({error:error});
             });
+        
+        
     };
 
 

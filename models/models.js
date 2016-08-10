@@ -40,9 +40,18 @@ let obj = {
         }        
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Exhibitions: sequelize.define('exhibitions', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        direction_category_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
-    
-    
     
     
 
@@ -51,5 +60,6 @@ let obj = {
 
 //obj.Users.sync({force: true});
 //obj.Direction_category.sync({force: true});
+//obj.Exhibitions.sync({force: true});
 
 module.exports = obj;
