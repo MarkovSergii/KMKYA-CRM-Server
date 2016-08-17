@@ -6,7 +6,7 @@
     var models = require('../models/models');
     let config  = require('../config');
 
-    var insertCategory = function(req,res)
+    var insert = function(req,res)
     {
         var logo = req.file.filename ? config.public_path+req.file.filename : null;
         models.Direction_category.create({name:req.body.name,logo:logo})
@@ -24,7 +24,7 @@
                 res.send({error:error});
             });
     };
-    var updateCategory = function(req,res)
+    var update = function(req,res)
     {
         var logo = ((req.file) && (req.file.filename)) ? config.public_path+req.file.filename : req.body.logo;
         models.Direction_category.update({name:req.body.name,logo:logo},{where:{id:req.params.id}})
@@ -42,7 +42,7 @@
                 res.send({error:error});
             });
     };
-    var selectAllCategories = function(req,res)
+    var selectAll = function(req,res)
     {
         models.Direction_category.findAll()
             .then(function(direction_categories) {
@@ -52,7 +52,7 @@
                 res.send({error:error});
             });
     };
-    var selectCategoryByID = function(req,res)
+    var selectByID = function(req,res)
     {
         models.Direction_category.findAll({ where: {id:req.params.id} })
             .then(function(direction_categories) {
@@ -62,7 +62,7 @@
                 res.send({error:error});
             });
     };
-    var deleteCategory = function(req,res)
+    var remove = function(req,res)
     {
         models.Exhibitions.update({direction_category_id:req.body.direction_category_id},{where:{id:req.params.id}})
             .then(function(){
@@ -83,6 +83,6 @@
 
 
 
-module.exports = {insertCategory,updateCategory,selectAllCategories,selectCategoryByID,deleteCategory};
+module.exports = {insert,update,selectAll,selectByID,remove};
 
 

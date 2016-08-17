@@ -51,6 +51,14 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Seasons: sequelize.define('seasons', {
+
+        name: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
     
     
@@ -58,8 +66,11 @@ let obj = {
 
 };
 
+// if uncomment then drop and recreate table
+
 //obj.Users.sync({force: true});
 //obj.Direction_category.sync({force: true});
 //obj.Exhibitions.sync({force: true});
+//obj.Seasons.sync({force: true});
 
 module.exports = obj;

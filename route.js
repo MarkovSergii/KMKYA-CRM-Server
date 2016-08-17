@@ -32,6 +32,7 @@ var upload_auth = multer({ storage: storage_auth });
 
 let loginCtrl = require('./controllers/loginCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
+let seasonsCtrl = require('./controllers/seasonsCtrl');
 
 
 router.post('/api/login',loginCtrl.login);
@@ -42,12 +43,18 @@ router.use(loginCtrl.checkToken);
 // to this area have access only token auth users 
 //--------------------------------------------------------------------------------------------------------------------
 //directionCategory
-router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAllCategories);
-router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectCategoryByID);
-router.post('/api/dictionary/exhibitionCategory/insert',upload_public.single('file'),directionCategoryCtrl.insertCategory);
-router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.deleteCategory);
-router.post('/api/dictionary/exhibitionCategory/:id/update',upload_public.single('file'),directionCategoryCtrl.updateCategory);
+router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAll);
+router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectByID);
+router.post('/api/dictionary/exhibitionCategory/insert',upload_public.single('file'),directionCategoryCtrl.insert);
+router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.remove);
+router.post('/api/dictionary/exhibitionCategory/:id/update',upload_public.single('file'),directionCategoryCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
-
+//Seasons
+router.get('/api/dictionary/seasons/all',seasonsCtrl.selectAll);
+router.get('/api/dictionary/seasons/:id/select',seasonsCtrl.selectByID);
+router.post('/api/dictionary/seasons/insert',seasonsCtrl.insert);
+router.post('/api/dictionary/seasons/:id/delete',seasonsCtrl.remove);
+router.post('/api/dictionary/seasons/:id/update',seasonsCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
 
 module.exports = router;
