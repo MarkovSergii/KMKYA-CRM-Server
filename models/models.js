@@ -59,9 +59,32 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Access_groups: sequelize.define('access_groups', {
+
+        name: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Access_types: sequelize.define('access_types', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        access_group_id:{
+            type: Sequelize.INTEGER
+        },
+        state: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
-    
-    
+
+
+
 
 
 };
@@ -72,5 +95,9 @@ let obj = {
 //obj.Direction_category.sync({force: true});
 //obj.Exhibitions.sync({force: true});
 //obj.Seasons.sync({force: true});
+//obj.Access_groups.sync({force: true});
+//obj.Access_types.sync({force: true});
+
+
 
 module.exports = obj;
