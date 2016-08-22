@@ -10,10 +10,17 @@ let bodyParser = require('body-parser');
 let CookieParser = require('cookie-parser');
 let cors = require('cors');
 
-
 let route = require('./route');
+var io = require('socket.io');
 
+var server = require('http').Server(app);
+    io = io.listen(server);
 
+require('./socket')(io);
+
+server.listen(process.env.socket_port || 3001,function(){
+    console.log('Socket server started at '+process.env.socket_port || 3001);
+});
 
 
 app.use(cors());
