@@ -9,7 +9,7 @@ let config  = require('../config');
 
 var insert = function(req,res)
 {
-    models.Access_groups.create({name:req.body.name})
+    models.Access.create({name:req.body.name})
         .then(function(season) {
             res.send({error:false,data:season});
         })
@@ -18,15 +18,21 @@ var insert = function(req,res)
         });
 };
 
-var selectAllWithTypes = function(req,res)
+var selectByUserID =  function(req,res)
 {
-    // TODO: добавить запрос когда появятся данные
+    models.Access.findAll({ where: {user_id:req.params.user_id} })
+        .then(function(user_access) {
+            res.send({error:false,data:user_access});
+        })
+        .catch(function(error){
+            res.send({error:error});
+        });
 };
 
 var update = function(req,res)
 {
 
-    models.Access_groups.update({name:req.body.name},{where:{id:req.params.id}})
+    models.Access.update({name:req.body.name},{where:{id:req.params.id}})
         .then(function(affectedRows) {
             if (affectedRows == 0)
             {
@@ -43,7 +49,7 @@ var update = function(req,res)
 };
 var selectAll = function(req,res)
 {
-    models.Access_groups.findAll()
+    models.Access.findAll()
         .then(function(seasons) {
             res.send({error:false,data:seasons});
         })
@@ -53,7 +59,7 @@ var selectAll = function(req,res)
 };
 var selectByID = function(req,res)
 {
-    models.Access_groups.findAll({ where: {id:req.params.id} })
+    models.Access.findAll({ where: {id:req.params.id} })
         .then(function(season) {
             res.send({error:false,data:season});
         })
@@ -63,7 +69,7 @@ var selectByID = function(req,res)
 };
 var remove = function(req,res)
 {
-    models.Access_groups.destroy({where: {id: req.params.id}})
+    models.Access.destroy({where: {id: req.params.id}})
         .then(function() {
             res.send({error:false});
         })
@@ -78,6 +84,6 @@ module.exports = {
     update,
     selectAll,
     selectByID,
-    remove,
-    selectAllWithTypes
+    selectByUserID,
+    remove
 };

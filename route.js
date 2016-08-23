@@ -33,9 +33,8 @@ var upload_auth = multer({ storage: storage_auth });
 let loginCtrl = require('./controllers/loginCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
 let seasonsCtrl = require('./controllers/seasonsCtrl');
-let accessGroupsCtrl = require('./controllers/accessGroupsCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
-
+let accessCtrl = require('./controllers/accessCtrl');
 
 router.post('/api/login',loginCtrl.login);
 router.post('/api/token',loginCtrl.sendUserByToken);
@@ -58,20 +57,20 @@ router.post('/api/dictionary/seasons/insert',seasonsCtrl.insert);
 router.post('/api/dictionary/seasons/:id/delete',seasonsCtrl.remove);
 router.post('/api/dictionary/seasons/:id/update',seasonsCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
-//access_groups
-router.get('/api/dictionary/access_groups/all',accessGroupsCtrl.selectAll);
-router.get('/api/dictionary/access_groups/all_with_types',accessGroupsCtrl.selectAllWithTypes);
-router.get('/api/dictionary/access_groups/:id/select',accessGroupsCtrl.selectByID);
-router.post('/api/dictionary/access_groups/insert',accessGroupsCtrl.insert);
-router.post('/api/dictionary/access_groups/:id/delete',accessGroupsCtrl.remove);
-router.post('/api/dictionary/access_groups/:id/update',accessGroupsCtrl.update);
-//--------------------------------------------------------------------------------------------------------------------
 //access_types
 router.get('/api/dictionary/access_types/all',accessTypesCtrl.selectAll);
 router.get('/api/dictionary/access_types/:id/select',accessTypesCtrl.selectByID);
 router.post('/api/dictionary/access_types/insert',accessTypesCtrl.insert);
 router.post('/api/dictionary/access_types/:id/delete',accessTypesCtrl.remove);
 router.post('/api/dictionary/access_types/:id/update',accessTypesCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
+//access
+router.get('/api/dictionary/access/all',accessCtrl.selectAll);
+router.get('/api/dictionary/access/:id/select',accessCtrl.selectByID);
+router.get('/api/dictionary/access/byUserId/:user_id',accessCtrl.selectByUserID);
+router.post('/api/dictionary/access/insert',accessCtrl.insert);
+router.post('/api/dictionary/access/:id/delete',accessCtrl.remove);
+router.post('/api/dictionary/access/:id/update',accessCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 
 
