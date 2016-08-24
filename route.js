@@ -66,8 +66,8 @@ router.post('/api/dictionary/access_types/:id/update',accessTypesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 //access
 router.get('/api/dictionary/access/all',accessCtrl.selectAll);
-router.get('/api/dictionary/access/:id/select',accessCtrl.selectByID);
-router.get('/api/dictionary/access/byUserId/:user_id',accessCtrl.selectByUserID);
+router.get('/api/dictionary/access/:id/select',accessCtrl.selectAccessByID);
+router.get('/api/dictionary/access/byUserId/:user_id',accessCtrl.selectAccessByUserID);
 router.post('/api/dictionary/access/insert',accessCtrl.insert);
 router.post('/api/dictionary/access/:id/delete',accessCtrl.remove);
 router.post('/api/dictionary/access/:id/update',accessCtrl.update);

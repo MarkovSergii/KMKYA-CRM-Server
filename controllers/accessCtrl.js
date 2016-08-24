@@ -18,11 +18,11 @@ var insert = function(req,res)
         });
 };
 
-var selectByUserID =  function(req,res)
+var selectAccessByUserID =  function(req,res)
 {
     models.Access.findAll({ where: {user_id:req.params.user_id} })
         .then(function(user_access) {
-            res.send({error:false,data:user_access});
+            res.send({error:false,data:user_access.map(function(item){ return item.access_type_id})});
         })
         .catch(function(error){
             res.send({error:error});
@@ -57,7 +57,7 @@ var selectAll = function(req,res)
             res.send({error:error});
         });
 };
-var selectByID = function(req,res)
+var selectAccessByID = function(req,res)
 {
     models.Access.findAll({ where: {id:req.params.id} })
         .then(function(season) {
@@ -83,7 +83,7 @@ module.exports = {
     insert,
     update,
     selectAll,
-    selectByID,
-    selectByUserID,
+    selectAccessByID,
+    selectAccessByUserID,
     remove
 };

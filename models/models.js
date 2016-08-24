@@ -82,8 +82,6 @@ let obj = {
 
 
 
-
-
 };
 
 // if uncomment then drop and recreate table
@@ -93,7 +91,7 @@ let obj = {
 //obj.Exhibitions.sync({force: true});
 //obj.Seasons.sync({force: true});
 //obj.Access_types.sync({force: true});
-obj.Access.sync({force: true});
+//obj.Access.sync({force: true});
 
 
 module.exports = obj;
