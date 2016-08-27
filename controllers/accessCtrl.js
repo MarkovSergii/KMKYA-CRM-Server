@@ -10,8 +10,8 @@ let config  = require('../config');
 var insert = function(req,res)
 {
     models.Access.create({name:req.body.name})
-        .then(function(season) {
-            res.send({error:false,data:season});
+        .then(function(access) {
+            res.send({error:false,data:access});
         })
         .catch(function(error){
             res.send({error:error});
@@ -50,8 +50,8 @@ var update = function(req,res)
 var selectAll = function(req,res)
 {
     models.Access.findAll()
-        .then(function(seasons) {
-            res.send({error:false,data:seasons});
+        .then(function(accesss) {
+            res.send({error:false,data:accesss});
         })
         .catch(function(error){
             res.send({error:error});
@@ -60,8 +60,8 @@ var selectAll = function(req,res)
 var selectAccessByID = function(req,res)
 {
     models.Access.findAll({ where: {id:req.params.id} })
-        .then(function(season) {
-            res.send({error:false,data:season});
+        .then(function(access) {
+            res.send({error:false,data:access});
         })
         .catch(function(error){
             res.send({error:error});
