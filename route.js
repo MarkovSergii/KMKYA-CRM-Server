@@ -36,6 +36,10 @@ let seasonsCtrl = require('./controllers/seasonsCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
 let accessCtrl = require('./controllers/accessCtrl');
 
+let countryCtrl = require('./controllers/countryCtrl');
+let oblastCtrl = require('./controllers/oblastCtrl');
+let cityCtrl = require('./controllers/cityCtrl');
+
 router.post('/api/login',loginCtrl.login);
 router.post('/api/token',loginCtrl.sendUserByToken);
 
@@ -72,8 +76,18 @@ router.post('/api/dictionary/access/insert',accessCtrl.insert);
 router.post('/api/dictionary/access/:id/delete',accessCtrl.remove);
 router.post('/api/dictionary/access/:id/update',accessCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
-
-
+// city
+router.get('/api/dictionary/city/all',cityCtrl.selectAll);
+router.get('/api/dictionary/city/byOblastId/:oblast_id',cityCtrl.selectByOblastId);
+router.get('/api/dictionary/city/:id/select',cityCtrl.selectByID);
+//--------------------------------------------------------------------------------------------------------------------
+// oblast
+router.get('/api/dictionary/oblast/all',oblastCtrl.selectAll);
+router.get('/api/dictionary/oblast/:id/select',oblastCtrl.selectByID);
+//--------------------------------------------------------------------------------------------------------------------
+// country
+router.get('/api/dictionary/country/all',countryCtrl.selectAll);
+router.get('/api/dictionary/country/:id/select',countryCtrl.selectByID);
 
 
 

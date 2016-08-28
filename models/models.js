@@ -78,9 +78,44 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    City : sequelize.define('city', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        oblast_id : {
+            type: Sequelize.INTEGER
+        },
+        order_by: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Oblast : sequelize.define('oblast', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        order_by: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
+    ,
+    Country : sequelize.define('country', {
 
-
+        name: {
+            type: Sequelize.STRING
+        },
+        order_by: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    })
 
 };
 
@@ -92,6 +127,9 @@ let obj = {
 //obj.Seasons.sync({force: true});
 //obj.Access_types.sync({force: true});
 //obj.Access.sync({force: true});
+//obj.City.sync({force: true});
+//obj.Oblast.sync({force: true});
+//obj.Country.sync({force: true});
 
 
 module.exports = obj;
