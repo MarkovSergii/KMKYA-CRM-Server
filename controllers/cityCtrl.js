@@ -1,6 +1,7 @@
 /**
  * Created by user on 28.08.2016.
  */
+'use strict';
 var models = require('../models/models');
 let config  = require('../config');
 
