@@ -60,7 +60,16 @@ var remove = function(req,res)
 {
     models.Access_types.destroy({where: {id: req.params.id}})
         .then(function() {
-            res.send({error:false});
+
+            models.Access.destroy({where: {access_type_id: req.params.id}})
+                .then(function(){
+
+                    res.send({error:false});
+                })
+                .catch(function(error){
+                    res.send({error:error});
+                });
+
         })
         .catch(function(error){
             res.send({error:error});
