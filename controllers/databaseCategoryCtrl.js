@@ -1,5 +1,5 @@
 /**
- * Created by user on 23.08.2016.
+ * Created by user on 03.09.2016.
  */
 'use strict';
 
@@ -9,9 +9,9 @@ let config  = require('../config');
 
 var insert = function(req,res)
 {
-    models.Access_types.create({name:req.body.name})
-        .then(function(access_type) {
-            res.send({error:false,data:access_type});
+    models.Database_category.create({name:req.body.name})
+        .then(function(database_category) {
+            res.send({error:false,data:database_category});
         })
         .catch(function(error){
             res.send({error:error});
@@ -21,7 +21,7 @@ var insert = function(req,res)
 var update = function(req,res)
 {
 
-    models.Access_types.update({name:req.body.name},{where:{id:req.params.id}})
+    models.Database_category.update({name:req.body.name},{where:{id:req.params.id}})
         .then(function(affectedRows) {
             if (affectedRows == 0)
             {
@@ -38,9 +38,9 @@ var update = function(req,res)
 };
 var selectAll = function(req,res)
 {
-    models.Access_types.findAll()
-        .then(function(access_types) {
-            res.send({error:false,data:access_types});
+    models.Database_category.findAll()
+        .then(function(database_categories) {
+            res.send({error:false,data:database_categories});
         })
         .catch(function(error){
             res.send({error:error});
@@ -48,28 +48,20 @@ var selectAll = function(req,res)
 };
 var selectByID = function(req,res)
 {
-    models.Access_types.findAll({ where: {id:req.params.id} })
-        .then(function(access_type) {
-            res.send({error:false,data:access_type});
+    models.Database_category.findAll({ where: {id:req.params.id} })
+        .then(function(database_category) {
+            res.send({error:false,data:database_category});
         })
         .catch(function(error){
             res.send({error:error});
         });
 };
+
 var remove = function(req,res)
 {
-    models.Access_types.destroy({where: {id: req.params.id}})
+    models.Database_category.destroy({where: {id: req.params.id}})
         .then(function() {
-
-            models.Access.destroy({where: {access_type_id: req.params.id}})
-                .then(function(){
-
-                    res.send({error:false});
-                })
-                .catch(function(error){
-                    res.send({error:error});
-                });
-
+            res.send({error:false});
         })
         .catch(function(error){
             res.send({error:error});

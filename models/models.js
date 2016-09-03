@@ -115,8 +115,29 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
-    })
+    }),
+    Databases: sequelize.define('databases', {
 
+        name: {
+            type: Sequelize.STRING
+        },
+        database_category_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Database_category: sequelize.define('database_category', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        direction_category_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    })
 };
 
 // if uncomment then drop and recreate table
@@ -130,6 +151,7 @@ let obj = {
 //obj.City.sync({force: true});
 //obj.Oblast.sync({force: true});
 //obj.Country.sync({force: true});
-
+//obj.Databases.sync({force: true});
+//obj.Database_category.sync({force: true});
 
 module.exports = obj;

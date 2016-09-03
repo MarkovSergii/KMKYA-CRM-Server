@@ -1,5 +1,5 @@
 /**
- * Created by user on 23.08.2016.
+ * Created by user on 03.09.2016.
  */
 'use strict';
 
@@ -9,9 +9,9 @@ let config  = require('../config');
 
 var insert = function(req,res)
 {
-    models.Access_types.create({name:req.body.name})
-        .then(function(access_type) {
-            res.send({error:false,data:access_type});
+    models.Databases.create({name:req.body.name,database_category_id:req.body.database_category_id})
+        .then(function(database) {
+            res.send({error:false,data:database});
         })
         .catch(function(error){
             res.send({error:error});
@@ -21,7 +21,7 @@ var insert = function(req,res)
 var update = function(req,res)
 {
 
-    models.Access_types.update({name:req.body.name},{where:{id:req.params.id}})
+    models.Databases.update({name:req.body.name,database_category_id:req.body.database_category_id},{where:{id:req.params.id}})
         .then(function(affectedRows) {
             if (affectedRows == 0)
             {
@@ -38,9 +38,9 @@ var update = function(req,res)
 };
 var selectAll = function(req,res)
 {
-    models.Access_types.findAll()
-        .then(function(access_types) {
-            res.send({error:false,data:access_types});
+    models.Databases.findAll()
+        .then(function(databases) {
+            res.send({error:false,data:databases});
         })
         .catch(function(error){
             res.send({error:error});
@@ -48,28 +48,31 @@ var selectAll = function(req,res)
 };
 var selectByID = function(req,res)
 {
-    models.Access_types.findAll({ where: {id:req.params.id} })
-        .then(function(access_type) {
-            res.send({error:false,data:access_type});
+    models.Databases.findAll({ where: {id:req.params.id} })
+        .then(function(databases) {
+            res.send({error:false,data:databases});
         })
         .catch(function(error){
             res.send({error:error});
         });
 };
+
+var selectByDatabaseCategoryID = function(req,res)
+{
+  /*  models.Databases.findAll({ where: {database_category_id:req.params.id} }) //todo исправить 
+        .then(function(databases) {
+            res.send({error:false,data:databases});
+        })
+        .catch(function(error){
+            res.send({error:error});
+        });*/
+};
+
 var remove = function(req,res)
 {
-    models.Access_types.destroy({where: {id: req.params.id}})
+    models.Databases.destroy({where: {id: req.params.id}})
         .then(function() {
-
-            models.Access.destroy({where: {access_type_id: req.params.id}})
-                .then(function(){
-
-                    res.send({error:false});
-                })
-                .catch(function(error){
-                    res.send({error:error});
-                });
-
+           res.send({error:false});
         })
         .catch(function(error){
             res.send({error:error});
@@ -81,6 +84,7 @@ module.exports = {
     insert,
     update,
     selectAll,
+    selectByDatabaseCategoryID,
     selectByID,
     remove
 };
