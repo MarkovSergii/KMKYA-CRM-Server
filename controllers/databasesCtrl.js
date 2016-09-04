@@ -59,13 +59,13 @@ var selectByID = function(req,res)
 
 var selectByDatabaseCategoryID = function(req,res)
 {
-  /*  models.Databases.findAll({ where: {database_category_id:req.params.id} }) //todo исправить 
+    models.Databases.findAll({ where: {database_category_id:req.params.id} })
         .then(function(databases) {
             res.send({error:false,data:databases});
         })
         .catch(function(error){
             res.send({error:error});
-        });*/
+        });
 };
 
 var remove = function(req,res)
