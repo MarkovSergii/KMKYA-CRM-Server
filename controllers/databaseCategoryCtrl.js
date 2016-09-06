@@ -9,7 +9,7 @@ let config  = require('../config');
 
 var insert = function(req,res)
 {
-    models.Database_category.create({name:req.body.name})
+    models.Database_category.create(req.body)
         .then(function(database_category) {
             res.send({error:false,data:database_category});
         })
@@ -21,7 +21,7 @@ var insert = function(req,res)
 var update = function(req,res)
 {
 
-    models.Database_category.update({name:req.body.name},{where:{id:req.params.id}})
+    models.Database_category.update(req.body,{where:{id:req.params.id}})
         .then(function(affectedRows) {
             if (affectedRows == 0)
             {
