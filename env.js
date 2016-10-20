@@ -8,7 +8,7 @@ const initEnvVariable = (_default,k)=>
     process.env[k] = R.defaultTo(_default, process.env[k]);
 
 R.mapObjIndexed(initEnvVariable, {
-    PORT:config.port,
+    port:config.port,
     socket_port: config.socket_port
 });
 
