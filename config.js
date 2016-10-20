@@ -9,6 +9,8 @@ module.exports.salt = '_solt';
 module.exports.public_path = '/filestore/public/';
 module.exports.auth_path = '/filestore/auth/';
 
+module.exports.port = 3000;
+module.exports.socket_port = 3001;
 
 module.exports.db_config = {
     db : 'kmkya_crm',
