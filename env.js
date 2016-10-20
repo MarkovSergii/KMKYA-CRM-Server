@@ -19,3 +19,5 @@ process.env.DEBUG = [
     'app*',
     process.env.DEBUG
 ].join(',');
+
+console.log(process.env);
