@@ -9,7 +9,7 @@ let config  = require('../config');
 
 var insert = function(req,res)
 {
-    models.Access.create({name:req.body.name})
+    models.Access.create({user_id:req.body.user_id,access_type_id:req.body.access_type_id})
         .then(function(access) {
             res.send({error:false,data:access});
         })
@@ -29,24 +29,6 @@ var selectAccessByUserID =  function(req,res)
         });
 };
 
-var update = function(req,res)
-{
-
-    models.Access.update({name:req.body.name},{where:{id:req.params.id}})
-        .then(function(affectedRows) {
-            if (affectedRows == 0)
-            {
-                res.send({error:true,message:"Ничего не обновлено"});
-            }
-            else
-            {
-                res.send({error:false});
-            }
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
-};
 var selectAll = function(req,res)
 {
     models.Access.findAll()
@@ -57,16 +39,7 @@ var selectAll = function(req,res)
             res.send({error:error});
         });
 };
-var selectAccessByID = function(req,res)
-{
-    models.Access.findAll({ where: {id:req.params.id} })
-        .then(function(access) {
-            res.send({error:false,data:access});
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
-};
+
 var remove = function(req,res)
 {
     models.Access.destroy({where: {id: req.params.id}})
@@ -81,9 +54,7 @@ var remove = function(req,res)
 
 module.exports = {
     insert,
-    update,
     selectAll,
-    selectAccessByID,
     selectAccessByUserID,
     remove
 };

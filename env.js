@@ -20,4 +20,4 @@ process.env.DEBUG = [
     process.env.DEBUG
 ].join(',');
 
-console.log(process.env);
+//console.log(process.env);

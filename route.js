@@ -30,7 +30,7 @@ let storage_auth = multer.diskStorage({
 var upload_public = multer({ storage: storage_public });
 var upload_auth = multer({ storage: storage_auth });
 
-let loginCtrl = require('./controllers/loginCtrl');
+let loginCtrl = require('./controllers/usersCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
 let seasonsCtrl = require('./controllers/seasonsCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
@@ -49,7 +49,13 @@ router.post('/api/token',loginCtrl.sendUserByToken);
 
 router.use(loginCtrl.checkToken);
 
-// to this area have access only token auth users 
+// to this area have access only token auth users
+//--------------------------------------------------------------------------------------------------------------------
+//users
+router.get('/api/dictionary/user/all',loginCtrl.selectAll);
+router.get('/api/dictionary/user/:id/select',loginCtrl.selectByID);
+router.post('/api/dictionary/user/insert',loginCtrl.insert);
+router.post('/api/dictionary/user/:id/update',loginCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 //directionCategory
 router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAll);
@@ -74,11 +80,9 @@ router.post('/api/dictionary/access_types/:id/update',accessTypesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 //access
 router.get('/api/dictionary/access/all',accessCtrl.selectAll);
-router.get('/api/dictionary/access/:id/select',accessCtrl.selectAccessByID);
 router.get('/api/dictionary/access/byUserId/:user_id',accessCtrl.selectAccessByUserID);
 router.post('/api/dictionary/access/insert',accessCtrl.insert);
 router.post('/api/dictionary/access/:id/delete',accessCtrl.remove);
-router.post('/api/dictionary/access/:id/update',accessCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // city
 router.get('/api/dictionary/city/all',cityCtrl.selectAll);
