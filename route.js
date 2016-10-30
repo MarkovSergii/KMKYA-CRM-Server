@@ -40,7 +40,7 @@ let countryCtrl = require('./controllers/countryCtrl');
 let oblastCtrl = require('./controllers/oblastCtrl');
 let cityCtrl = require('./controllers/cityCtrl');
 
-let databaseCategoryCtrl = require('./controllers/databaseCategoryCtrl');
+
 let databasesCtrl = require('./controllers/databasesCtrl');
 
 
@@ -105,12 +105,6 @@ router.post('/api/dictionary/database/insert',databasesCtrl.insert);
 router.post('/api/dictionary/database/:id/delete',databasesCtrl.remove);
 router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
-// databases_category
-router.get('/api/dictionary/database_category/all',databaseCategoryCtrl.selectAll);
-router.get('/api/dictionary/database_category/:id/select',databaseCategoryCtrl.selectByID);
-router.post('/api/dictionary/database_category/insert',databaseCategoryCtrl.insert);
-router.post('/api/dictionary/database_category/:id/delete',databaseCategoryCtrl.remove);
-router.post('/api/dictionary/database_category/:id/update',databaseCategoryCtrl.update);
 
 
 

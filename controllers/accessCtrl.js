@@ -20,9 +20,16 @@ var insert = function(req,res)
 
 var selectAccessByUserID =  function(req,res)
 {
+    let ac = {};
     models.Access.findAll({ where: {user_id:req.params.user_id} })
-        .then(function(user_access) {
-            res.send({error:false,data:user_access.map(function(item){ return item.access_type_id})});
+        .then((user_access)=>{ac.access = user_access.map(function(item){ return item.access_type_id})})
+        .then(()=>models.Direction_user.findAll({ where: {user_id:req.params.user_id} }))
+        .then((direction_user)=>{ac.direction_user = direction_user.map(function(item){ return item.direction_category_id})})
+        .then(()=>models.Exhibition_users.findAll({ where: {user_id:req.params.user_id} }))
+        .then((exhibition_user)=>{ac.exhibition_user = exhibition_user.map(function(item){ return item.exhibition_id})})
+        .then(function() {
+            console.log(ac);
+            res.send({error:false,data:ac});
         })
         .catch(function(error){
             res.send({error:error});

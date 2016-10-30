@@ -127,10 +127,21 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
-    Database_category: sequelize.define('database_category', {
+    Exhibition_users: sequelize.define('exhibition_users', {
 
-        name: {
-            type: Sequelize.STRING
+        user_id: {
+            type: Sequelize.INTEGER
+        },
+        exhibition_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Direction_user: sequelize.define('direction_users', {
+
+        user_id: {
+            type: Sequelize.INTEGER
         },
         direction_category_id: {
             type: Sequelize.INTEGER
@@ -153,5 +164,11 @@ let obj = {
 //obj.Country.sync({force: true});
 //obj.Databases.sync({force: true});
 //obj.Database_category.sync({force: true});
+//obj.Exhibition_users.sync({force: true});
+//obj.Direction_user.sync({force: true});
+
+
+
+
 
 module.exports = obj;
