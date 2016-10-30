@@ -33,6 +33,7 @@ var upload_auth = multer({ storage: storage_auth });
 let loginCtrl = require('./controllers/usersCtrl');
 let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
 let seasonsCtrl = require('./controllers/seasonsCtrl');
+let exhibitionsCtrl = require('./controllers/exhibitionsCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
 let accessCtrl = require('./controllers/accessCtrl');
 
@@ -71,6 +72,13 @@ router.post('/api/dictionary/seasons/insert',seasonsCtrl.insert);
 router.post('/api/dictionary/seasons/:id/delete',seasonsCtrl.remove);
 router.post('/api/dictionary/seasons/:id/update',seasonsCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
+//Exhibitions
+router.get('/api/dictionary/exhibitions/all',exhibitionsCtrl.selectAll);
+router.get('/api/dictionary/exhibitions/:id/select',exhibitionsCtrl.selectByID);
+router.post('/api/dictionary/exhibitions/insert',exhibitionsCtrl.insert);
+router.post('/api/dictionary/exhibitions/:id/delete',exhibitionsCtrl.remove);
+router.post('/api/dictionary/exhibitions/:id/update',exhibitionsCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
 //access_types
 router.get('/api/dictionary/access_types/all',accessTypesCtrl.selectAll);
 router.get('/api/dictionary/access_types/:id/select',accessTypesCtrl.selectByID);
@@ -100,7 +108,6 @@ router.get('/api/dictionary/country/:id/select',countryCtrl.selectByID);
 // databases
 router.get('/api/dictionary/database/all',databasesCtrl.selectAll);
 router.get('/api/dictionary/database/:id/select',databasesCtrl.selectByID);
-router.get('/api/dictionary/database/byDatabaseCategoryID/:id',databasesCtrl.selectByDatabaseCategoryID);
 router.post('/api/dictionary/database/insert',databasesCtrl.insert);
 router.post('/api/dictionary/database/:id/delete',databasesCtrl.remove);
 router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
