@@ -18,22 +18,24 @@ var insert = function(req,res)
         });
 };
 
+var insertAccess = (user_id,access_types) =>
+  Promise.all(access_types.map((one_access)=> models.Access.create({user_id:user_id,access_type_id:one_access})));
+
+var deleteAccess = (user_id) =>
+    models.Access.destroy({where: {user_id: user_id}});
+
+var _selectAccessByUserID = (user_id) =>
+     models.Access.findAll({ where: {user_id:user_id} })
+        .then((user_access)=> user_access.map(function(item){ return item.access_type_id}))     
+        .catch(function(error){
+            return(error);
+        });
+
 var selectAccessByUserID =  function(req,res)
 {
-    let ac = {};
-    models.Access.findAll({ where: {user_id:req.params.user_id} })
-        .then((user_access)=>{ac.access = user_access.map(function(item){ return item.access_type_id})})
-        .then(()=>models.Direction_user.findAll({ where: {user_id:req.params.user_id} }))
-        .then((direction_user)=>{ac.direction_user = direction_user.map(function(item){ return item.direction_category_id})})
-        .then(()=>models.Exhibition_users.findAll({ where: {user_id:req.params.user_id} }))
-        .then((exhibition_user)=>{ac.exhibition_user = exhibition_user.map(function(item){ return item.exhibition_id})})
-        .then(function() {
-            console.log(ac);
-            res.send({error:false,data:ac});
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
+    _selectAccessByUserID(req.params.user_id)
+        .then((ac)=>{console.log(ac);res.send({error:false,data:ac})})
+        .catch((error) => res.send({error:error}));
 };
 
 var selectAll = function(req,res)
@@ -62,6 +64,9 @@ var remove = function(req,res)
 module.exports = {
     insert,
     selectAll,
+    insertAccess,
+    deleteAccess,
     selectAccessByUserID,
+    _selectAccessByUserID,
     remove
 };
