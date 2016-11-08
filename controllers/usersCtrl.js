@@ -99,11 +99,31 @@ const checkToken = function (req, res, next) {
 };
 
 const selectAll = function(req,res){
-    models.Users.findAll()
-        .then(function(users) {
-            res.send({error:false,data:users});
+    let arrPA = [];
+    let arrPD = [];
+    let arrA = [];
+    let arrD = [];
+    let users = [];
+    models.Users.findAll({raw: true})
+        .then((u)=>{users=u; return u;})
+        .then((users)=>{users.forEach((user)=>arrPA.push(accessCtrl._selectAccessByUserID(user.id))); return users})
+        .then((users)=>{users.forEach((user)=>arrPD.push(directionUsersCtrl._selectDirectionUsersByUserID(user.id))); return users})
+        .then(()=>Promise.all(arrPA))
+        .then((a)=>(arrA=a))
+        .then(()=>Promise.all(arrPD))
+        .then((d)=>(arrD=d))
+        .then(function() {
+            console.log("arrA",arrA);
+            console.log("arrD",arrD);
+            let fullUsers = users.map((user,i)=>{
+                user.access = arrA[i];
+                user.directions = arrD[i];
+                return user;
+            });
+            res.send({error:false,data:fullUsers});
         })
         .catch(function(error){
+            console.log(error);
             res.send({error:error});
         });
 };
@@ -125,18 +145,21 @@ const insert = function(req,res){
 };
 
 var selectByID = function(req,res)
-{
+{   let user = {};
     let some_f = {};
-        accessCtrl._selectAccessByUserID(req.params.id)
+    models.Users.findOne({where:{id:req.params.id},raw: true})
+        .then((u)=>{user = u;return u;})
+        .then(()=> accessCtrl._selectAccessByUserID(req.params.id))
         .then((access)=>some_f.access = access)
         .then(()=>directionUsersCtrl._selectDirectionUsersByUserID(req.params.id))
         .then((directions)=>some_f.directions = directions)
         .then(()=>exhibitionsUsersCtrl._selectExhibitionsUsersByUserID(req.params.id))
         .then((exhibitions)=>some_f.exhibitions = exhibitions)
         .then(function() {
-            res.send({error:false,data:some_f});
+            res.send({error:false,data:R.merge(user,some_f)});
         })
-        .catch(function(error){            
+        .catch(function(error){
+            console.log(error);
             res.send({error:error});
         });
 };
