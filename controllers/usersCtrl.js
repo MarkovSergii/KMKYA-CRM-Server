@@ -113,8 +113,6 @@ const selectAll = function(req,res){
         .then(()=>Promise.all(arrPD))
         .then((d)=>(arrD=d))
         .then(function() {
-            console.log("arrA",arrA);
-            console.log("arrD",arrD);
             let fullUsers = users.map((user,i)=>{
                 user.access = arrA[i];
                 user.directions = arrD[i];
@@ -129,17 +127,21 @@ const selectAll = function(req,res){
 };
 
 const insert = function(req,res){
-    var newUser={};
+    var newUser_id;
+    let user = {};
     models.Users.create({name:req.body.name,email:req.body.email,password:password_service.encode_password(req.body.password),type:req.body.type})
-        .then((user)=>{newUser = user; return user})
-        .then(()=>accessCtrl.insertAccess(newUser.id,req.body.access_types))
-        .then((access)=>(newUser.access = access))
-        .then(()=>directionUsersCtrl.insertDirections(newUser.id,req.body.directions))
-        .then((access)=>(newUser.directions = directions))
-        .then(function(newUser) {
-            res.send({error:false,data:newUser});
+        .then((user)=>{newUser_id = user.id; return user})
+        .then(()=>accessCtrl.insertAccess(newUser_id,req.body.access_types || []))
+        .then(()=>directionUsersCtrl.insertDirections(newUser_id,req.body.directions || []))
+        .then(()=>models.Users.findOne({where:{id:newUser_id},raw: true}))
+        .then((u)=>{user = u;return u;})
+        .then(function() {
+            user.directions = req.body.directions || [];
+            user.access = req.body.access_types || [];
+            res.send({error:false,data:user});
         })
         .catch(function(error){
+            console.log(error);
             res.send({error:error});
         });
 };
