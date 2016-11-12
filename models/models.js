@@ -148,13 +148,33 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
-    })
+    }),
+    Direction_users: sequelize.define('direction_users', {
+
+        user_id: {
+            type: Sequelize.INTEGER
+        },
+        direction_category_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    })    
+
+
 };
+
+
+
+
+
+
 
 // if uncomment then drop and recreate table
 
 //obj.Users.sync({force: true});
 //obj.Direction_category.sync({force: true});
+//obj.Direction_users.sync({force: true});
 //obj.Exhibitions.sync({force: true});
 //obj.Seasons.sync({force: true});
 //obj.Access_types.sync({force: true});
@@ -166,6 +186,7 @@ let obj = {
 //obj.Database_category.sync({force: true});
 //obj.Exhibition_users.sync({force: true});
 //obj.Direction_user.sync({force: true});
+
 
 
 
