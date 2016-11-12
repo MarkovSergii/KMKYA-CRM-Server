@@ -186,6 +186,9 @@ let obj = {
         postindex: {
             type: Sequelize.STRING
         },
+        tags: {
+            type: Sequelize.STRING
+        },
         files_ids: {
             type: Sequelize.STRING
         }
@@ -202,6 +205,14 @@ let obj = {
         },
         direction_category_id: {
             type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Tags: sequelize.define('tags', {
+
+        name: {
+            type: Sequelize.STRING
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
@@ -232,6 +243,7 @@ let obj = {
 //obj.Exhibition_users.sync({force: true});
 //obj.Direction_user.sync({force: true});
 //obj.Firms.sync({force: true});
+//obj.Tags.sync({force: true});
 //obj.FirmExhibitions.sync({force: true});
 
 
