@@ -159,8 +159,53 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
-    })    
+    }),
+    Firms: sequelize.define('firms', {
 
+        name: {
+            type: Sequelize.STRING
+        },
+        database_id: {
+            type: Sequelize.INTEGER
+        },
+        country_id: {
+            type: Sequelize.INTEGER
+        },
+        oblast_id: {
+            type: Sequelize.INTEGER
+        },
+        city_id: {
+            type: Sequelize.INTEGER
+        },
+        city: {
+            type: Sequelize.STRING
+        },
+        address: {
+            type: Sequelize.STRING
+        },
+        postindex: {
+            type: Sequelize.STRING
+        },
+        files_ids: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    FirmExhibitions: sequelize.define('direction_users', {
+
+        firm_id: {
+            type: Sequelize.INTEGER
+        },
+        exhibition_id: {
+            type: Sequelize.INTEGER
+        },
+        direction_category_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    })
 
 };
 
@@ -186,6 +231,8 @@ let obj = {
 //obj.Database_category.sync({force: true});
 //obj.Exhibition_users.sync({force: true});
 //obj.Direction_user.sync({force: true});
+//obj.Firms.sync({force: true});
+//obj.FirmExhibitions.sync({force: true});
 
 
 

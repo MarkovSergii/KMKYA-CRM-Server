@@ -43,6 +43,7 @@ let cityCtrl = require('./controllers/cityCtrl');
 
 
 let databasesCtrl = require('./controllers/databasesCtrl');
+let firmsCtrl = require('./controllers/firmsCtrl');
 
 
 router.post('/api/login',loginCtrl.login);
@@ -111,6 +112,13 @@ router.get('/api/dictionary/database/:id/select',databasesCtrl.selectByID);
 router.post('/api/dictionary/database/insert',databasesCtrl.insert);
 router.post('/api/dictionary/database/:id/delete',databasesCtrl.remove);
 router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
+// firms
+router.get('/api/dictionary/firms/all',firmsCtrl.selectAll);
+router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
+router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
+router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
+router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 
 
