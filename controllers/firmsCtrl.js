@@ -1,7 +1,7 @@
 /**
  * Created by sergii on 12.11.16.
  */
-
+'use strict';
 var models = require('../models/models');
 let config  = require('../config');
 
