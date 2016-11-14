@@ -48,6 +48,17 @@ var selectAll = function(req,res)
         });
 };
 
+var byDirectionId = function(req,res)
+{
+    models.Firms.findAll({where: {database_id:req.params.id}})
+        .then(function(firms) {
+            res.send({error:false,data:firms});
+        })
+        .catch(function(error){
+            res.send({error:error});
+        });
+};
+
 var selectByID = function(req,res)
 {
     models.Firms.findAll({ where: {id:req.params.id} })
@@ -81,5 +92,6 @@ module.exports = {
     update,
     selectAll,
     selectByID,
+    byDirectionId,
     remove
 }

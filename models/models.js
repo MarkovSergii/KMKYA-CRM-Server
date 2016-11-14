@@ -171,8 +171,14 @@ let obj = {
         country_id: {
             type: Sequelize.INTEGER
         },
+        country: {
+            type: Sequelize.STRING
+        },
         oblast_id: {
             type: Sequelize.INTEGER
+        },
+        oblast: {
+            type: Sequelize.STRING
         },
         city_id: {
             type: Sequelize.INTEGER
