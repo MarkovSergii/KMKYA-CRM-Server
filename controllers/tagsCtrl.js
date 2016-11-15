@@ -8,7 +8,7 @@ let config  = require('../config');
 
 const selectAll = (req,res)=>{
     
-    models.Tags.findAll()
+    models.Tags.findAll({where:{direction_category_id:req.params.id}})
         .then(function(tags) {
             res.send({error:false,data:tags});
         })
@@ -19,7 +19,7 @@ const selectAll = (req,res)=>{
 
 const insert = (req,res)=>{
 
-    models.Tags.create(req.name)
+    models.Tags.create({name:req.name,direction_category_id:req.direction_category_id})
         .then(()=>res.send({error:false,data:req.name}))
         .catch(function(error){
             res.send({error:error});
@@ -28,8 +28,8 @@ const insert = (req,res)=>{
 
 const remove = (req,res)=>{
 
-    models.Tags.destroy({where: {name: req.params.name}})
-        .then(()=>res.send({error:false,data:req.name}))
+    models.Tags.destroy({where: {id: req.params.id}})
+        .then(()=>res.send({error:false}))
         .catch(function(error){
                 res.send({error:error});
         });

@@ -124,7 +124,7 @@ router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
 router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // tags
-router.get('/api/dictionary/tags/all',tagsCtrl.selectAll);
+router.get('/api/dictionary/tags/all/:id',tagsCtrl.selectAll);
 router.post('/api/dictionary/tags/insert',tagsCtrl.insert);
 router.post('/api/dictionary/tags/:id/delete',tagsCtrl.remove);
 //--------------------------------------------------------------------------------------------------------------------
