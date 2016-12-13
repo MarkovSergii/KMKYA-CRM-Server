@@ -13,11 +13,11 @@ module.exports.port = 3000;
 module.exports.socket_port = 3001;
 
 module.exports.db_config = {
-    db : 'kmkya_crm',
-    user : 'root',
-    password : '12345',
+    db : 'admin_KMKYA_CRM',
+    user : 'admin_kmkya_crm',
+    password : '1234567890',
     mysql : {
-        host: '93.171.158.114',
+        host: '178.159.39.65',
         dialect: 'mysql',
         collate: "utf8_general_ci",
         pool: {
