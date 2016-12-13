@@ -138,17 +138,6 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
-    Direction_user: sequelize.define('direction_users', {
-
-        user_id: {
-            type: Sequelize.INTEGER
-        },
-        direction_category_id: {
-            type: Sequelize.INTEGER
-        }
-    }, {
-        freezeTableName: true // Model tableName will be the same as the model name
-    }),
     Direction_users: sequelize.define('direction_users', {
 
         user_id: {
@@ -250,7 +239,6 @@ let obj = {
 //obj.Databases.sync({force: true});
 //obj.Database_category.sync({force: true});
 //obj.Exhibition_users.sync({force: true});
-//obj.Direction_user.sync({force: true});
 //obj.Firms.sync({force: true});
 //obj.Tags.sync({force: true});
 //obj.FirmExhibitions.sync({force: true});
