@@ -3,6 +3,10 @@
  */
 'use strict';
 
+require('pmx').init({
+    http : true
+});
+
 let express = require('express');
 let app = express();
 
