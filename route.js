@@ -117,6 +117,7 @@ router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // firms
 router.get('/api/dictionary/firms/all',firmsCtrl.selectAll);
+router.get('/api/dictionary/firms/fakeFirms',fileCtrl.fakeFirms);
 router.get('/api/dictionary/firms/:id/byDirectionId',firmsCtrl.byDirectionId);
 router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
 router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
