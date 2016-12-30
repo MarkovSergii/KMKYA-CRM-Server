@@ -8,7 +8,8 @@ let config  = require('../config');
 var insert = function(req,res)
 {
     let firmId;
-    models.Firms.create(req.firm)
+    console.log(req.body);
+    models.Firms.create(req.body)
         .then(function(firm) {
             firmId = firm.id;
         })

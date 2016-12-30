@@ -154,6 +154,12 @@ let obj = {
         name: {
             type: Sequelize.STRING
         },
+        director:{
+            type: Sequelize.STRING
+        },
+        contact_person:{
+            type: Sequelize.STRING
+        },
         database_id: {
             type: Sequelize.INTEGER
         },
@@ -176,13 +182,25 @@ let obj = {
             type: Sequelize.STRING
         },
         address: {
-            type: Sequelize.STRING
+            type: Sequelize.TEXT
         },
         postindex: {
             type: Sequelize.STRING
         },
+        tels:{
+            type: Sequelize.TEXT
+        },
+        emails:{
+            type: Sequelize.TEXT
+        },
+        web:{
+            type: Sequelize.TEXT
+        },
+        note:{
+            type: Sequelize.TEXT
+        },
         tags: {
-            type: Sequelize.STRING
+            type: Sequelize.TEXT
         },
         files_ids: {
             type: Sequelize.STRING
