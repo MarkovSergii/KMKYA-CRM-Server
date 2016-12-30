@@ -2,8 +2,10 @@
  * Created by sergii on 12.11.16.
  */
 'use strict';
-var models = require('../models/models');
+let models = require('../models/models');
 let config  = require('../config');
+let tagCtrl = require('../controllers/tagsCtrl');
+let databaseCtrl = require('../controllers/databasesCtrl');
 
 var insert = function(req,res)
 {
@@ -13,7 +15,14 @@ var insert = function(req,res)
         .then(function(firm) {
             firmId = firm.id;
         })
-        .then(()=>models.Firms.findOne({where:{id:firmId},raw:true}))
+        .then(()=>databaseCtrl.getDirectionByDatabaseID(req.body.database_id))
+        .then((directionId)=>{ // add new tags
+            if (req.body.tags){
+                let tagsArr = req.body.tags.split(',');
+                tagsArr.map((tag)=> tagCtrl.insertCheck(tag,directionId))
+            }
+        }) 
+        .then(()=>models.Firms.findOne({where:{id:firmId},raw:true}))        
         .then((addedFirm)=>{addedFirm.files_ids = []; res.send({error:false,data:addedFirm})})
         .catch(function(error){
             res.send({error:error});

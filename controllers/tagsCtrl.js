@@ -15,28 +15,28 @@ const selectAll = (req,res)=>{
         .catch(function(error){
             res.send({error:error});
         });
-}
+};
+
+const insertCheck = (tag,direction_category_id)=>{
+    models.Tags.findOrCreate({where:{name:tag,direction_category_id:direction_category_id}})
+};
 
 const insert = (req,res)=>{
 
-    models.Tags.create({name:req.name,direction_category_id:req.direction_category_id})
-        .then(()=>res.send({error:false,data:req.name}))
-        .catch(function(error){
-            res.send({error:error});
-        });
-}
+res.send('ok');
+};
 
 const remove = (req,res)=>{
-
     models.Tags.destroy({where: {id: req.params.id}})
         .then(()=>res.send({error:false}))
         .catch(function(error){
                 res.send({error:error});
         });
-}
+};
 
 module.exports = {
     selectAll,
+    insertCheck,
     insert,
     remove
-}
+};

@@ -18,6 +18,17 @@ var insert = function(req,res)
         });
 };
 
+var getDirectionByDatabaseID = (database_id) =>
+
+    models.Databases.findOne({ where: {id:database_id},raw:true })
+        .then(function(row) {
+            return row.database_category_id
+        })
+        .catch(function(error){
+
+        });
+
+
 var update = function(req,res)
 {
 
@@ -84,6 +95,7 @@ module.exports = {
     insert,
     update,
     selectAll,
+    getDirectionByDatabaseID,
     selectByDatabaseCategoryID,
     selectByID,
     remove
