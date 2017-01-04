@@ -121,7 +121,7 @@ router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
 router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
 router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
 router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
-router.post('/api/dictionary/firms/addFile',upload_auth.single('file'),firmsCtrl.addFile);
+router.post('/api/dictionary/firms/addFile',upload_auth.single('firmFile'),firmsCtrl.addFile);
 //--------------------------------------------------------------------------------------------------------------------
 // tags
 router.get('/api/dictionary/tags/all/:id',tagsCtrl.selectAll);

@@ -31,10 +31,11 @@ var insert = function(req,res)
 };
 
 var addFile = function(req,res){
-    var file = req.file.filename ? config.auth_path+req.file.filename : null;
-    console.log(file);
-    // do something with file
-    res.send('ok');
+    var firmFile = req.file.filename ? config.auth_path+req.file.filename : null;
+    // do something with firmFile
+    
+    
+    res.send({error:false,message:"",data:"ok"});
 };
 
 var update = function(req,res)
