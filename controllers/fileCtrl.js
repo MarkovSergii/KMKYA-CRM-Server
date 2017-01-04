@@ -4,11 +4,7 @@
 'use strict';
 var models = require('../models/models');
 let config  = require('../config');
-let fakeFirmsFile = require('../filestore/fakeFirms');
 
-const fakeFirms = (req,res)=>{
-    res.send(JSON.stringify(fakeFirmsFile));
-}
 
 const namesByIds=(req,res)=>
 {
@@ -32,7 +28,6 @@ const remove=(req,res)=>
 
 module.exports = {
     namesByIds,
-    fakeFirms,
     getByID,
     insert,
     remove

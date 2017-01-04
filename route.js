@@ -44,7 +44,6 @@ let cityCtrl = require('./controllers/cityCtrl');
 
 let databasesCtrl = require('./controllers/databasesCtrl');
 let firmsCtrl = require('./controllers/firmsCtrl');
-let fileCtrl = require('./controllers/fileCtrl');
 let tagsCtrl = require('./controllers/tagsCtrl');
 
 
@@ -102,7 +101,7 @@ router.get('/api/dictionary/city/:id/select',cityCtrl.selectByID);
 //--------------------------------------------------------------------------------------------------------------------
 // oblast
 router.get('/api/dictionary/oblast/all',oblastCtrl.selectAll);
-router.get('/api/dictionary/oblast/:id/select',oblastCtrl.selectByID);
+router.get('/api/dictionary/oblast/:id/select',oblastCtrl.selectByID); 
 //--------------------------------------------------------------------------------------------------------------------
 // country
 router.get('/api/dictionary/country/all',countryCtrl.selectAll);
@@ -117,23 +116,18 @@ router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // firms
 router.get('/api/dictionary/firms/all',firmsCtrl.selectAll);
-router.get('/api/dictionary/firms/fakeFirms',fileCtrl.fakeFirms);
 router.get('/api/dictionary/firms/:id/byDirectionId',firmsCtrl.byDirectionId);
 router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
 router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
 router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
 router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
+router.post('/api/dictionary/firms/addFile',upload_auth.single('file'),firmsCtrl.addFile);
 //--------------------------------------------------------------------------------------------------------------------
 // tags
 router.get('/api/dictionary/tags/all/:id',tagsCtrl.selectAll);
 router.post('/api/dictionary/tags/insert',tagsCtrl.insert);
 router.post('/api/dictionary/tags/:id/delete',tagsCtrl.remove);
 //--------------------------------------------------------------------------------------------------------------------
-// files
-router.get('/api/dictionary/file/namesByIds',fileCtrl.namesByIds);
-router.get('/api/dictionary/file/:id/get',fileCtrl.getByID);
-router.post('/api/dictionary/file/insert',fileCtrl.insert);
-router.post('/api/dictionary/file/:id/delete',fileCtrl.remove);
 
 //--------------------------------------------------------------------------------------------------------------------
 

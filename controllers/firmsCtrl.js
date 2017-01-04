@@ -30,6 +30,13 @@ var insert = function(req,res)
         });
 };
 
+var addFile = function(req,res){
+    var file = req.file.filename ? config.auth_path+req.file.filename : null;
+    console.log(file);
+    // do something with file
+    res.send('ok');
+};
+
 var update = function(req,res)
 {
     models.Firms.update(req.firm,{where:{id:req.params.id}})
@@ -101,6 +108,7 @@ var remove = function(req,res)
 module.exports = {
     insert,
     update,
+    addFile,
     selectAll,
     selectByID,
     byDirectionId,
