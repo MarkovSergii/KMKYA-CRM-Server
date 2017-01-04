@@ -202,8 +202,11 @@ let obj = {
         tags: {
             type: Sequelize.TEXT
         },
-        files_ids: {
-            type: Sequelize.STRING
+        tagsNames: {
+            type: Sequelize.TEXT
+        },
+        files: {
+            type: Sequelize.TEXT
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name

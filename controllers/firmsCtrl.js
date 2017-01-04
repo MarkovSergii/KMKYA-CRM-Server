@@ -18,8 +18,9 @@ var insert = function(req,res)
         .then(()=>databaseCtrl.getDirectionByDatabaseID(req.body.database_id))
         .then((directionId)=>{ // add new tags
             if (req.body.tags){
-                let tagsArr = req.body.tags.split(',');
-                tagsArr.map((tag)=> tagCtrl.insertCheck(tag,directionId))
+                let tagsArr = JSON.parse(req.body.tags);
+                console.log(tagsArr);
+                tagsArr.map((tag)=> tagCtrl.insertCheck(tag.text,directionId))
             }
         }) 
         .then(()=>models.Firms.findOne({where:{id:firmId},raw:true}))        
