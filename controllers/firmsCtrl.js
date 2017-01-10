@@ -32,10 +32,24 @@ var insert = function(req,res)
 
 var addFile = function(req,res){
     var firmFile = req.file.filename ? config.auth_path+req.file.filename : null;
-    // do something with firmFile
     
-    
-    res.send({error:false,message:"",data:"ok"});
+    //add file to db
+    //add in log
+    //update file field in firms
+    //send back to user
+    res.send({error:false,message:"",data:[{id:1,name:"hh.jpg"}]});
+};
+
+var deleteFile = function(req,res){
+   
+    console.log('firmId - ',req.params.id);
+    console.log('fileId - ',req.body.fileId);
+
+    //remove file from db
+    //add in log
+    //update file field in firms
+    //send back to user
+    res.send({error:false,message:"",data:[{id:1,name:"hh.jpg"}]});
 };
 
 var update = function(req,res)
@@ -110,6 +124,7 @@ module.exports = {
     insert,
     update,
     addFile,
+    deleteFile,
     selectAll,
     selectByID,
     byDirectionId,
