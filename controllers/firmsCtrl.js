@@ -6,6 +6,7 @@ let models = require('../models/models');
 let config  = require('../config');
 let tagCtrl = require('../controllers/tagsCtrl');
 let databaseCtrl = require('../controllers/databasesCtrl');
+let R = require('ramda');
 
 var insert = function(req,res)
 {
@@ -31,13 +32,43 @@ var insert = function(req,res)
 };
 
 var addFile = function(req,res){
-    var firmFile = req.file.filename ? config.auth_path+req.file.filename : null;
-    
-    //add file to db
+    var savePath = req.file.filename ? config.auth_path+req.file.filename : null;
+    console.log(req.body);
+    let fileId;
+    models.Files.create({save_path:savePath, original_name: req.file.originalname, save_name:req.file.filename})
+        .then(function(file) {
+            fileId = file.id;
+        })
+        .then(()=> models.Firms.findOne({where:{id:req.body.firmId},raw:true}))
+        .then((firm)=>{
+            firm.files = firm.files ? firm.files: '[]';
+            let tempFiles = JSON.parse(firm.files);
+            tempFiles.push(fileId);
+            return tempFiles;
+        })
+        .then((arrFiles) => {
+            models.Firms.update({files: JSON.stringify(arrFiles)},{where:{id:req.body.firmId}});
+            return arrFiles
+        })
+        .then((arrFiles) =>
+            models.Files.findAll({where: {id: arrFiles}})
+                .then((files)=>
+                         R.map(item=>{
+                             return {
+                                        id: item.id,
+                                        name: item.original_name
+                                    }},files)
+                    )
+        )
+        .then((arr)=>{
+            res.send({error:false,message:"",data:arr});
+        })
+        .catch((e)=>{
+            res.send({error:true,message:e,data:[]});
+        })
+
     //add in log
-    //update file field in firms
-    //send back to user
-    res.send({error:false,message:"",data:[{id:1,name:"hh.jpg"}]});
+
 };
 
 var deleteFile = function(req,res){
@@ -54,16 +85,13 @@ var deleteFile = function(req,res){
 
 var update = function(req,res)
 {
-    models.Firms.update(req.firm,{where:{id:req.params.id}})
+    models.Firms.update(req.body,{where:{id:req.params.id}})
         .then(function(affectedRows) {
             if (affectedRows == 0)
-            {
                 res.send({error:true,message:"Ничего не обновлено"});
-            }
             else
-            {
-                res.send({error:false});
-            }
+                models.Firms.findOne({where:{id:req.params.id},raw:true})
+                .then((addedFirm)=>{addedFirm.files_ids = []; res.send({error:false,data:addedFirm})})
         })
         .catch(function(error){
             res.send({error:error});

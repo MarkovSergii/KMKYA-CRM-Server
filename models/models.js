@@ -235,6 +235,20 @@ let obj = {
         }
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Files: sequelize.define('files', {
+
+        original_name: {
+            type: Sequelize.STRING
+        },
+        save_name: {
+            type: Sequelize.STRING
+        },
+        save_path: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
     })
 
 };
@@ -263,6 +277,7 @@ let obj = {
 //obj.Firms.sync({force: true});
 //obj.Tags.sync({force: true});
 //obj.FirmExhibitions.sync({force: true});
+//obj.Files.sync({force: true});
 
 
 

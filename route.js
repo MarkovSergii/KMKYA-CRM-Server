@@ -3,8 +3,7 @@
  */
 'use strict';
 
-let express = require('express');
-let router = express.Router();
+let router = require('express').Router();
 let multer  = require('multer');
 let config  = require('./config');
 
