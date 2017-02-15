@@ -33,7 +33,7 @@ var insert = function(req,res)
 
 var addFile = function(req,res){
     var savePath = req.file.filename ? config.auth_path+req.file.filename : null;
-    console.log(req.body);
+
     let fileId;
     models.Files.create({save_path:savePath, original_name: req.file.originalname, save_name:req.file.filename})
         .then(function(file) {
@@ -43,23 +43,26 @@ var addFile = function(req,res){
         .then((firm)=>{
             firm.files = firm.files ? firm.files: '[]';
             let tempFiles = JSON.parse(firm.files);
+            console.log(tempFiles);
             tempFiles.push(fileId);
             return tempFiles;
         })
         .then((arrFiles) => {
+            console.log(arrFiles);
             models.Firms.update({files: JSON.stringify(arrFiles)},{where:{id:req.body.firmId}});
             return arrFiles
         })
-        .then((arrFiles) =>
+        .then((arrFiles) =>{
+            console.log(arrFiles);
             models.Files.findAll({where: {id: arrFiles}})
-                .then((files)=>
+                .then((files)=>{
                          R.map(item=>{
                              return {
                                         id: item.id,
                                         name: item.original_name
-                                    }},files)
-                    )
-        )
+                                    }},files);
+                })
+        })
         .then((arr)=>{
             res.send({error:false,message:"",data:arr});
         })
@@ -122,9 +125,27 @@ var byDirectionId = function(req,res)
 
 var selectByID = function(req,res)
 {
-    models.Firms.findAll({ where: {id:req.params.id} })
-        .then(function(firm) {
-            res.send({error:false,data:firm});
+    let one_firm;
+    models.Firms.findAll({ where: {id:req.params.id}, raw:true })
+        .then((firm)=>{
+            one_firm = firm[0];
+            if (!one_firm.files) one_firm.files = '[]'
+        })
+        .then(()=>models.Files.findAll({where: {
+            id: {$in:   JSON.parse(one_firm.files)}
+        }}))
+    .then((files)=>{
+    console.log('files',files)
+    one_firm.fileList =  R.map(item=>{
+        return {
+            id: item.id,
+            name: item.original_name
+        }},files);
+        return one_firm;
+    })
+        .then(()=>console.log(one_firm)) // если хо посмотреть что внутри
+        .then(function() {
+            res.send({error:false,data:one_firm});
         })
         .catch(function(error){
             res.send({error:error});
