@@ -33,7 +33,7 @@ var insert = function(req,res)
 
 var addFile = function(req,res){
     var savePath = req.file.filename ? config.auth_path+req.file.filename : null;
-
+    let ttt;
     let fileId;
     models.Files.create({save_path:savePath, original_name: req.file.originalname, save_name:req.file.filename})
         .then(function(file) {
@@ -43,47 +43,49 @@ var addFile = function(req,res){
         .then((firm)=>{
             firm.files = firm.files ? firm.files: '[]';
             let tempFiles = JSON.parse(firm.files);
-            console.log(tempFiles);
             tempFiles.push(fileId);
             return tempFiles;
         })
         .then((arrFiles) => {
-            console.log(arrFiles);
             models.Firms.update({files: JSON.stringify(arrFiles)},{where:{id:req.body.firmId}});
-            return arrFiles
+            return arrFiles;
         })
-        .then((arrFiles) =>{
-            console.log(arrFiles);
-            models.Files.findAll({where: {id: arrFiles}})
-                .then((files)=>{
+        .then((arrFiles)=>
+            models.Files.findAll({where: {id: arrFiles},raw:true})
+                .then((files)=>
                          R.map(item=>{
                              return {
-                                        id: item.id,
-                                        name: item.original_name
-                                    }},files);
-                })
-        })
-        .then((arr)=>{
-            res.send({error:false,message:"",data:arr});
-        })
-        .catch((e)=>{
-            res.send({error:true,message:e,data:[]});
-        })
+                                       id: item.id,
+                                       name: item.original_name
+                                    }},files)
+                ))
+        .then((arr)=>res.send({error:false,message:"",data:arr}))
+        .catch((e)=>res.send({error:true,message:e,data:[]}))
 
     //add in log
 
 };
 
 var deleteFile = function(req,res){
-   
+    let one_firm;
     console.log('firmId - ',req.params.id);
     console.log('fileId - ',req.body.fileId);
+    let fileList;
+    models.Firms.findOne({where:{id:req.params.id},raw:true})
+        .then((firm)=>{
+            one_firm = firm;
+            fileList = JSON.parse(firm.files);
+            fileList.splice(fileList.indexOf(req.body.fileId),1);
+            models.Firms.update({files: JSON.stringify(fileList)},{where:{id:req.params.id}});
+            models.Files.destroy({where: {id: req.body.fileId}});
+            one_firm.files = JSON.stringify(fileList);
+            return firm;
+        })
+        .then((firm)=>addFilelistToRes(firm))
+        .then((firm)=>res.send({error:false,data:firm}))
+        .catch((e)=>console.log(error));
 
-    //remove file from db
     //add in log
-    //update file field in firms
-    //send back to user
-    res.send({error:false,message:"",data:[{id:1,name:"hh.jpg"}]});
 };
 
 var update = function(req,res)
@@ -131,22 +133,8 @@ var selectByID = function(req,res)
             one_firm = firm[0];
             if (!one_firm.files) one_firm.files = '[]'
         })
-        .then(()=>models.Files.findAll({where: {
-            id: {$in:   JSON.parse(one_firm.files)}
-        }}))
-    .then((files)=>{
-    console.log('files',files)
-    one_firm.fileList =  R.map(item=>{
-        return {
-            id: item.id,
-            name: item.original_name
-        }},files);
-        return one_firm;
-    })
-        .then(()=>console.log(one_firm)) // если хо посмотреть что внутри
-        .then(function() {
-            res.send({error:false,data:one_firm});
-        })
+        .then(()=>addFilelistToRes(one_firm))
+        .then((firm)=>res.send({error:false,data:firm}))
         .catch(function(error){
             res.send({error:error});
         });
@@ -167,6 +155,21 @@ var remove = function(req,res)
         .catch(function(error){
             res.send({error:error});
         });
+};
+
+var addFilelistToRes = function(firm) {
+    let one_firm = firm;
+    return models.Files.findAll({where: {
+        id: {$in: JSON.parse(firm.files)}
+    }})
+        .then((files)=>
+            one_firm.fileList = R.map(item=>{
+                return {
+                    id: item.id,
+                    name: item.original_name
+                }},files)
+        )
+        .then(()=>one_firm)
 };
 
 module.exports = {
