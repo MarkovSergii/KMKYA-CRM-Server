@@ -7,6 +7,8 @@ let config  = require('../config');
 let tagCtrl = require('../controllers/tagsCtrl');
 let databaseCtrl = require('../controllers/databasesCtrl');
 let R = require('ramda');
+let fileTypes = require('../services/utils').fileTypes;
+
 
 var insert = function(req,res)
 {
@@ -33,9 +35,13 @@ var insert = function(req,res)
 
 var addFile = function(req,res){
     var savePath = req.file.filename ? config.auth_path+req.file.filename : null;
-    let ttt;
     let fileId;
-    models.Files.create({save_path:savePath, original_name: req.file.originalname, save_name:req.file.filename})
+    let file_reg = /(.+\.)(.+)/g;
+    let fileType = req.file.originalname.split(file_reg)[2] ? req.file.originalname.split(file_reg)[2] : '_blank' ;
+
+    fileType = fileTypes.includes(fileType) ? fileType :  '_blank' ;
+
+    models.Files.create({save_path:savePath, original_name: req.file.originalname, save_name:req.file.filename, file_type: fileType})
         .then(function(file) {
             fileId = file.id;
         })
@@ -56,7 +62,8 @@ var addFile = function(req,res){
                          R.map(item=>{
                              return {
                                        id: item.id,
-                                       name: item.original_name
+                                       name: item.original_name,
+                                        fileType: item.file_type
                                     }},files)
                 ))
         .then((arr)=>res.send({error:false,message:"",data:arr}))
@@ -166,7 +173,8 @@ var addFilelistToRes = function(firm) {
             one_firm.fileList = R.map(item=>{
                 return {
                     id: item.id,
-                    name: item.original_name
+                    name: item.original_name,
+                    fileType: item.file_type
                 }},files)
         )
         .then(()=>one_firm)
