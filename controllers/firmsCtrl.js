@@ -8,7 +8,8 @@ let tagCtrl = require('../controllers/tagsCtrl');
 let databaseCtrl = require('../controllers/databasesCtrl');
 let R = require('ramda');
 let fileTypes = require('../services/utils').fileTypes;
-
+let fs = require('fs');
+var path = require('path');
 
 var insert = function(req,res)
 {
@@ -94,6 +95,14 @@ var deleteFile = function(req,res){
 
     //add in log
 };
+
+var sendFile = function(req, res) {
+    let file_path = path.join(__dirname, '..') ;
+    models.Files.findOne({where: {id: req.params.id}})
+        .then((file)=>res.download(file_path + file.save_path))
+        .catch((e)=>res.send({error:true,data:e}))
+};
+
 
 var update = function(req,res)
 {
@@ -182,6 +191,7 @@ var addFilelistToRes = function(firm) {
 
 module.exports = {
     insert,
+    sendFile,
     update,
     addFile,
     deleteFile,
