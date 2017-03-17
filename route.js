@@ -3,8 +3,7 @@
  */
 'use strict';
 
-let express = require('express');
-let router = express.Router();
+let router = require('express').Router();
 let multer  = require('multer');
 let config  = require('./config');
 
@@ -118,10 +117,12 @@ router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
 router.get('/api/dictionary/firms/all',firmsCtrl.selectAll);
 router.get('/api/dictionary/firms/:id/byDirectionId',firmsCtrl.byDirectionId);
 router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
+router.get('/api/dictionary/firms/:id/sendFile',firmsCtrl.sendFile);
 router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
 router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
 router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
 router.post('/api/dictionary/firms/addFile',upload_auth.single('firmFile'),firmsCtrl.addFile);
+router.post('/api/dictionary/firms/:id/deleteFile/',firmsCtrl.deleteFile);
 //--------------------------------------------------------------------------------------------------------------------
 // tags
 router.get('/api/dictionary/tags/all/:id',tagsCtrl.selectAll);
