@@ -13,11 +13,13 @@ let app = express();
 let bodyParser = require('body-parser');
 let CookieParser = require('cookie-parser');
 let cors = require('cors');
+let helmet = require('helmet');
+
 
 let route = require('./route');
-var io = require('socket.io');
+let io = require('socket.io');
 
-var server = require('http').Server(app);
+let server = require('http').Server(app);
     io = io.listen(server);
 
 require('./socket')(io);
@@ -26,7 +28,8 @@ server.listen(process.env.socket_port || 3001,function(){
     console.log('Socket server started at '+process.env.socket_port || 3001);
 });
 
-
+app.use(helmet());
+app.disable('x-powered-by');
 app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: false
