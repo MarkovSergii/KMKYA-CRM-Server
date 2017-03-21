@@ -52,6 +52,14 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    Subexhibitions: sequelize.define('subexhibitions', {
+
+        name: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Seasons: sequelize.define('seasons', {
 
         name: {
@@ -268,6 +276,7 @@ let obj = {
 //obj.Direction_category.sync({force: true});
 //obj.Direction_users.sync({force: true});
 //obj.Exhibitions.sync({force: true});
+//obj.Subexhibitions.sync({force: true});
 //obj.Seasons.sync({force: true});
 //obj.Access_types.sync({force: true});
 //obj.Access.sync({force: true});
