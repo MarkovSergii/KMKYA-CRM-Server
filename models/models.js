@@ -60,6 +60,14 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    Catalogues: sequelize.define('catalogues', {
+
+    name: {
+        type: Sequelize.STRING
+    }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Seasons: sequelize.define('seasons', {
 
         name: {
@@ -290,6 +298,7 @@ let obj = {
 //obj.Tags.sync({force: true});
 //obj.FirmExhibitions.sync({force: true});
 //obj.Files.sync({force: true});
+//obj.Catalogues.sync({force: true});
 
 
 

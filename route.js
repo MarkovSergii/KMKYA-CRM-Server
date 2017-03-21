@@ -34,6 +34,7 @@ let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
 let seasonsCtrl = require('./controllers/seasonsCtrl');
 let exhibitionsCtrl = require('./controllers/exhibitionsCtrl');
 let subexhibitionsCtrl = require('./controllers/subexhibitionsCtrl');
+let cataloguesCtrl = require('./controllers/cataloguesCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
 let accessCtrl = require('./controllers/accessCtrl');
 
@@ -80,6 +81,13 @@ router.get('/api/dictionary/exhibitions/:id/select',exhibitionsCtrl.selectByID);
 router.post('/api/dictionary/exhibitions/insert',exhibitionsCtrl.insert);
 router.post('/api/dictionary/exhibitions/:id/delete',exhibitionsCtrl.remove);
 router.post('/api/dictionary/exhibitions/:id/update',exhibitionsCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
+// catalogs
+router.get('/api/dictionary/catalogues/all',cataloguesCtrl.selectAll);
+//router.get('/api/dictionary/catalogues/:id/select',cataloguesCtrl.selectByID);
+router.post('/api/dictionary/catalogues/insert',cataloguesCtrl.insert);
+//router.post('/api/dictionary/catalogues/:id/delete',cataloguesCtrl.remove);
+router.post('/api/dictionary/catalogues/:id/update',cataloguesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // Subexhibitions
 router.get('/api/dictionary/subexhibitions/all',subexhibitionsCtrl.selectAll);
