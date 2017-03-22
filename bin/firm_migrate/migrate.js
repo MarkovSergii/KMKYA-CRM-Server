@@ -5,9 +5,17 @@ const dopDB = require('./connections').dopDB
 const clientDB = require('./connections').clientDB
 const express = require('express')
 
-
 const app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
+server.listen(2526,function(){
+    console.log('Socket server started at '+ 2526);
+});
+
+io.on('connection', function(socket){
+    console.log('some connected')
+});
 
 var PRICE_BUILD = dopDB.define('PRICE_BUILD',models.PRICE_BUILD);
 PRICE_BUILD.mod = 'PRICE_BUILD';
@@ -34,10 +42,10 @@ FIRMS.mod = 'FIRMS';
 FIRMS.schema = clientDB;
 
 
-
+app.use(express.static(__dirname+'/public'));
 
 app.get('/',(req,res)=>{
-    res.send('Hello')
+    res.sendFile(__dirname+'/public/index.html')
 })
 
 app.get('/1',(req,res)=>{
