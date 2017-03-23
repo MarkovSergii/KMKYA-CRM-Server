@@ -45,7 +45,7 @@ describe('Authentication Controller', () => {
             .expect(200)
             .then((data) => {
                 assert.equal(data.error, false); 
-                assert.not.equal(data.length, 0); 
+                assert.notEqual(data.length, 0); 
             });
     });
 
