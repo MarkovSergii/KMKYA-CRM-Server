@@ -30,7 +30,7 @@ var upload_public = multer({ storage: storage_public });
 var upload_auth = multer({ storage: storage_auth });
 
 let loginCtrl = require('./controllers/usersCtrl');
-let directionCategoryCtrl = require('./controllers/directionCategoryCtrl');
+let directionsCtrl = require('./controllers/directionsCtrl');
 let seasonsCtrl = require('./controllers/seasonsCtrl');
 let exhibitionsCtrl = require('./controllers/exhibitionsCtrl');
 let subexhibitionsCtrl = require('./controllers/subexhibitionsCtrl');
@@ -60,13 +60,14 @@ router.get('/api/dictionary/user/all',loginCtrl.selectAll);
 router.get('/api/dictionary/user/:id/select',loginCtrl.selectByID);
 router.post('/api/dictionary/user/insert',loginCtrl.insert);
 router.post('/api/dictionary/user/:id/update',loginCtrl.update);
+
 //--------------------------------------------------------------------------------------------------------------------
 //directionCategory
-router.get('/api/dictionary/exhibitionCategory/all',directionCategoryCtrl.selectAll);
-router.get('/api/dictionary/exhibitionCategory/:id/select',directionCategoryCtrl.selectByID);
-router.post('/api/dictionary/exhibitionCategory/insert',upload_public.single('file'),directionCategoryCtrl.insert);
-router.post('/api/dictionary/exhibitionCategory/:id/delete',directionCategoryCtrl.remove);
-router.post('/api/dictionary/exhibitionCategory/:id/update',upload_public.single('file'),directionCategoryCtrl.update);
+router.get('/api/dictionary/directions/all',directionsCtrl.selectAll);
+router.get('/api/dictionary/directions/:id/select',directionsCtrl.selectByID);
+router.post('/api/dictionary/directions/insert',upload_public.single('file'),directionsCtrl.insert);
+router.post('/api/dictionary/directions/:id/delete',directionsCtrl.remove);
+router.post('/api/dictionary/directions/:id/update',upload_public.single('file'),directionsCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 //Seasons
 router.get('/api/dictionary/seasons/all',seasonsCtrl.selectAll);
@@ -99,9 +100,12 @@ router.get('/api/dictionary/subexhibitions/all',subexhibitionsCtrl.selectAll);
 //access_types
 router.get('/api/dictionary/access_types/all',accessTypesCtrl.selectAll);
 router.get('/api/dictionary/access_types/:id/select',accessTypesCtrl.selectByID);
+router.get('/api/dictionary/access_types/selectBy/:field/:value',accessTypesCtrl.selectBy);
 router.post('/api/dictionary/access_types/insert',accessTypesCtrl.insert);
 router.post('/api/dictionary/access_types/:id/delete',accessTypesCtrl.remove);
 router.post('/api/dictionary/access_types/:id/update',accessTypesCtrl.update);
+
+
 //--------------------------------------------------------------------------------------------------------------------
 //access
 router.get('/api/dictionary/access/all',accessCtrl.selectAll);
@@ -132,16 +136,16 @@ router.post('/api/dictionary/database/:id/update',databasesCtrl.update);
 // firms
 router.get('/api/dictionary/firms/all',firmsCtrl.selectAll);
 router.get('/api/dictionary/firms/:id/byDirectionId',firmsCtrl.byDirectionId);
+router.get('/api/dictionary/firms/selectBy/:field/:value',firmsCtrl.selectBy);
 router.get('/api/dictionary/firms/:id/select',firmsCtrl.selectByID);
 router.get('/api/dictionary/firms/:id/sendFile',firmsCtrl.sendFile);
 router.post('/api/dictionary/firms/insert',firmsCtrl.insert);
-router.post('/api/dictionary/firms/:id/delete',firmsCtrl.remove);
 router.post('/api/dictionary/firms/:id/update',firmsCtrl.update);
 router.post('/api/dictionary/firms/addFile',upload_auth.single('firmFile'),firmsCtrl.addFile);
 router.post('/api/dictionary/firms/:id/deleteFile/',firmsCtrl.deleteFile);
 //--------------------------------------------------------------------------------------------------------------------
 // tags
-router.get('/api/dictionary/tags/all/:id',tagsCtrl.selectAll);
+router.get('/api/dictionary/tags/selectBy/:field/:value',tagsCtrl.selectBy);
 router.post('/api/dictionary/tags/insert',tagsCtrl.insert);
 router.post('/api/dictionary/tags/:id/delete',tagsCtrl.remove);
 //--------------------------------------------------------------------------------------------------------------------

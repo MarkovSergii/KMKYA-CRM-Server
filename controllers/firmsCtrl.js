@@ -134,6 +134,19 @@ var selectAll = function(req,res)
             res.send({error:error});
         });
 };
+var selectBy =  function(req,res)
+{
+    let p = {};
+    p[req.params.field] = req.params.value;
+    models.Firms.findAll({where:p})
+        .then(function(firms) {
+            res.send({error:false,data:firms});
+        })
+        .catch(function(error){
+            res.send({error:error});
+        });
+    
+};
 
 var byDirectionId = function(req,res)
 {
@@ -156,23 +169,6 @@ var selectByID = function(req,res)
         })
         .then(()=>addFilelistToRes(one_firm))
         .then((firm)=>res.send({error:false,data:firm}))
-        .catch(function(error){
-            res.send({error:error});
-        });
-};
-
-var remove = function(req,res)
-{
-    models.FirmExhibitions.update({firm_id:req.body.firm_id},{where:{id:req.params.id}})
-        .then(function(){
-            models.Firms.destroy({where: {id: req.params.id}})
-                .then(function() {
-                    res.send({error:false});
-                })
-                .catch(function(error){
-                    res.send({error:error});
-                });
-        })
         .catch(function(error){
             res.send({error:error});
         });
@@ -203,5 +199,5 @@ module.exports = {
     selectAll,
     selectByID,
     byDirectionId,
-    remove
+    selectBy
 }

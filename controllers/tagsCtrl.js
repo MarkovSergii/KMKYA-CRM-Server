@@ -6,9 +6,12 @@ var models = require('../models/models');
 let config  = require('../config');
 
 
-const selectAll = (req,res)=>{
-    
-    models.Tags.findAll({where:{direction_category_id:req.params.id}})
+const selectBy = (req,res)=>{
+
+    let p = {};
+    p[req.params.field] = req.params.value;
+
+    models.Tags.findAll({where:p})
         .then(function(tags) {
             res.send({error:false,data:tags});
         })
@@ -17,8 +20,8 @@ const selectAll = (req,res)=>{
         });
 };
 
-const insertCheck = (tag,direction_category_id)=>{
-    models.Tags.findOrCreate({where:{name:tag,direction_category_id:direction_category_id}})
+const insertCheck = (tag,directions_id)=>{
+    models.Tags.findOrCreate({where:{name:tag,directions_id:directions_id}})
 };
 
 const insert = (req,res)=>{
@@ -35,8 +38,8 @@ const remove = (req,res)=>{
 };
 
 module.exports = {
-    selectAll,
     insertCheck,
     insert,
-    remove
+    remove,
+    selectBy
 };

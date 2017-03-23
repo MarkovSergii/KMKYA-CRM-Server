@@ -27,7 +27,7 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
-    Direction_category: sequelize.define('direction_category', {
+    Directions: sequelize.define('directions', {
 
         name: {
             type: Sequelize.STRING
@@ -46,7 +46,7 @@ let obj = {
         name: {
             type: Sequelize.STRING
         },
-        direction_category_id: {
+        directions_id: {
             type: Sequelize.INTEGER
         }
     }, {
@@ -159,7 +159,7 @@ let obj = {
         user_id: {
             type: Sequelize.INTEGER
         },
-        direction_category_id: {
+        directions_id: {
             type: Sequelize.INTEGER
         }
     }, {
@@ -227,26 +227,12 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
-    FirmExhibitions: sequelize.define('direction_users', {
-
-        firm_id: {
-            type: Sequelize.INTEGER
-        },
-        exhibition_id: {
-            type: Sequelize.INTEGER
-        },
-        direction_category_id: {
-            type: Sequelize.INTEGER
-        }
-    }, {
-        freezeTableName: true // Model tableName will be the same as the model name
-    }),
     Tags: sequelize.define('tags', {
 
         name: {
             type: Sequelize.STRING
         },
-        direction_category_id: {
+        directions_id: {
             type: Sequelize.INTEGER
         }
     }, {
@@ -281,7 +267,7 @@ let obj = {
 // if uncomment then drop and recreate table
 
 //obj.Users.sync({force: true});
-//obj.Direction_category.sync({force: true});
+//obj.Directions.sync({force: true});
 //obj.Direction_users.sync({force: true});
 //obj.Exhibitions.sync({force: true});
 //obj.Subexhibitions.sync({force: true});
@@ -296,7 +282,6 @@ let obj = {
 //obj.Exhibition_users.sync({force: true});
 //obj.Firms.sync({force: true});
 //obj.Tags.sync({force: true});
-//obj.FirmExhibitions.sync({force: true});
 //obj.Files.sync({force: true});
 //obj.Catalogues.sync({force: true});
 

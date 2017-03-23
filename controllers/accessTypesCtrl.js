@@ -46,6 +46,21 @@ var selectAll = function(req,res)
             res.send({error:error});
         });
 };
+
+var selectBy = function(req,res){
+    
+    let p = {};
+    p[req.params.field] = req.params.value;
+
+    models.Access_types.findAll({ where: p })
+        .then(function(access_type) {
+            res.send({error:false,data:access_type});
+        })
+        .catch(function(error){
+            res.send({error:error});
+        });
+}
+
 var selectByID = function(req,res)
 {
     models.Access_types.findAll({ where: {id:req.params.id} })
@@ -82,5 +97,6 @@ module.exports = {
     update,
     selectAll,
     selectByID,
+    selectBy,
     remove
 };
