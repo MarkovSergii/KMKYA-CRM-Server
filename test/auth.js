@@ -7,8 +7,8 @@ let assert = require('chai').assert;
 let request = require('supertest-as-promised');
 
 
-let email = 'test_name';
-let password = 'test_password';
+let email = '1@1.com';
+let password = '1';
 
 let app = require('../app');
 
