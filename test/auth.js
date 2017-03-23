@@ -19,7 +19,7 @@ describe('Authentication Controller', () => {
     it('should login and return token as json', () => {
 
         return request(app)
-            .post('/api/user/login')
+            .post('/api/login')
             .send({ email, password })
             .expect(200)
             .then((data) => {
@@ -40,7 +40,7 @@ describe('Authentication Controller', () => {
     it('should return dictianory data when auth', () => {
 
         return request(app)
-            .get('/api/dictionary/country')
+            .get('/api/dictionary/country/all')
             .set('Authorization', _token)
             .expect(200)
             .then((data) => {
