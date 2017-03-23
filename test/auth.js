@@ -44,7 +44,8 @@ describe('Authentication Controller', () => {
             .set('Authorization', _token)
             .expect(200)
             .then((data) => {
-                assert.equal(data.text, 'country');   // TODO: change test to real data
+                assert.equal(data.error, false); 
+                assert.not.equal(data.length, 0); 
             });
     });
 
