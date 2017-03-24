@@ -94,6 +94,7 @@ module.exports = ({variables,table,insert1,insert2,update,fieldTestUpdate})=> {
                 .expect(200)
                 .then((response) => {
                     assert.equal(response.body.error, false);
+                    assert.equal(response.body.data.length, 0);
                 });
         });
         
@@ -104,6 +105,7 @@ module.exports = ({variables,table,insert1,insert2,update,fieldTestUpdate})=> {
                 .expect(200)
                 .then((response) => {
                     assert.equal(response.body.error, false);
+                    assert.equal(response.body.data.length, 0);
                 });
         });
 
