@@ -60,6 +60,14 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    Squaretypes: sequelize.define('squaretypes', {
+
+        name: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Catalogues: sequelize.define('catalogues', {
 
     name: {
@@ -284,6 +292,7 @@ let obj = {
 //obj.Tags.sync({force: true});
 //obj.Files.sync({force: true});
 //obj.Catalogues.sync({force: true});
+//obj.squaretypes.sync({force: true});
 
 
 
