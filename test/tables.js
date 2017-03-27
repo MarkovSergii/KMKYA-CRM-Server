@@ -3,7 +3,7 @@ let variables = require('./CONST');
 let tables = [
     {
         variables:variables,
-        table:'seasons',
+        table:'Seasons',
         insert1:{name:"2001"},
         insert2:{name:"2002"},
         update:{name:"1995"},
@@ -11,7 +11,7 @@ let tables = [
     },
     {
         variables:variables,
-        table:'access_types',
+        table:'Access_types',
         insert1:{name:"2001"},
         insert2:{name:"2002"},
         update:{name:"1995"},
