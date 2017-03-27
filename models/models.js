@@ -76,6 +76,17 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    CatalogueQuestions: sequelize.define('catalogue_questions', {
+
+        catalogue_id: {
+            type: Sequelize.INTEGER
+        },
+        question_id: {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Questions: sequelize.define('questions', {
 
         name: {
@@ -341,6 +352,7 @@ let obj = {
 //obj.Places.sync({force: true});
 //obj.Answers.sync({force: true});
 //obj.Questions.sync({force: true});
+//obj.CatalogueQuestions.sync({force: true});
 
 
 
