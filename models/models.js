@@ -76,6 +76,44 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    Questions: sequelize.define('questions', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        title_ukr: {
+            type: Sequelize.STRING
+        },
+        title_en: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
+    Answers: sequelize.define('answers', {
+
+        name: {
+            type: Sequelize.STRING
+        },
+        title_ukr: {
+            type: Sequelize.STRING
+        },
+        title_en: {
+            type: Sequelize.STRING
+        },
+        answer_type: {
+            type: Sequelize.STRING
+        },
+        can_have_text: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
+        },
+        question_id : {
+            type: Sequelize.INTEGER
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Places: sequelize.define('places', {
         name: {
             type: Sequelize.STRING
@@ -301,6 +339,8 @@ let obj = {
 //obj.Catalogues.sync({force: true});
 //obj.squaretypes.sync({force: true});
 //obj.Places.sync({force: true});
+//obj.Answers.sync({force: true});
+//obj.Questions.sync({force: true});
 
 
 
