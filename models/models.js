@@ -76,6 +76,13 @@ let obj = {
     }, {
         freezeTableName: true // Model tableName will be the same as the model name
     }),
+    Places: sequelize.define('places', {
+        name: {
+            type: Sequelize.STRING
+        }
+    }, {
+        freezeTableName: true // Model tableName will be the same as the model name
+    }),
     Seasons: sequelize.define('seasons', {
 
         name: {
@@ -293,6 +300,7 @@ let obj = {
 //obj.Files.sync({force: true});
 //obj.Catalogues.sync({force: true});
 //obj.squaretypes.sync({force: true});
+//obj.Places.sync({force: true});
 
 
 

@@ -38,6 +38,7 @@ let cataloguesCtrl = require('./controllers/cataloguesCtrl');
 let accessTypesCtrl = require('./controllers/accessTypesCtrl');
 let accessCtrl = require('./controllers/accessCtrl');
 let squaretypesCtrl = require('./controllers/squareTypesCtrl');
+let placesCtrl = require('./controllers/placesCtrl');
 
 let countryCtrl = require('./controllers/countryCtrl');
 let oblastCtrl = require('./controllers/oblastCtrl');
@@ -95,6 +96,11 @@ router.get('/api/dictionary/catalogues/all',cataloguesCtrl.selectAll);
 router.post('/api/dictionary/catalogues/insert',cataloguesCtrl.insert);
 //router.post('/api/dictionary/catalogues/:id/delete',cataloguesCtrl.remove);
 router.post('/api/dictionary/catalogues/:id/update',cataloguesCtrl.update);
+//--------------------------------------------------------------------------------------------------------------------
+// catalogs
+router.get('/api/dictionary/places/all',placesCtrl.selectAll);
+router.post('/api/dictionary/places/insert',placesCtrl.insert);
+router.post('/api/dictionary/places/:id/update',placesCtrl.update);
 //--------------------------------------------------------------------------------------------------------------------
 // Subexhibitions
 router.get('/api/dictionary/subexhibitions/all',subexhibitionsCtrl.selectAll);
