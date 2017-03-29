@@ -124,40 +124,10 @@ var update = function(req,res)
         });
 };
 
-var selectAll = function(req,res)
-{
-    models.Firms.findAll()
-        .then(function(firms) {
-            res.send({error:false,data:firms});
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
-};
-var selectBy =  function(req,res)
-{
-    let p = {};
-    p[req.params.field] = req.params.value;
-    models.Firms.findAll({where:p})
-        .then(function(firms) {
-            res.send({error:false,data:firms});
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
-    
-};
 
-var byDirectionId = function(req,res)
-{
-    models.Firms.findAll({where: {database_id:req.params.id}})
-        .then(function(firms) {
-            res.send({error:false,data:firms});
-        })
-        .catch(function(error){
-            res.send({error:error});
-        });
-};
+
+
+
 
 var selectByID = function(req,res)
 {
@@ -196,8 +166,6 @@ module.exports = {
     update,
     addFile,
     deleteFile,
-    selectAll,
-    selectByID,
-    byDirectionId,
-    selectBy
+    selectByID
+
 }

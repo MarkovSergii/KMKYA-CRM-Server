@@ -35,7 +35,7 @@ let config  = require('../config');
 
     let selectAll = function(req,res)
     {
-        models[req.params.table].findAll()
+        models[req.params.table].findAll({raw:true})
             .then(function(obj) {
                 res.send({error:false,data:obj});
             })
@@ -48,7 +48,7 @@ let config  = require('../config');
         let p = {};
         p[req.params.field] = req.params.value;
     
-        models[req.params.table].findAll({ where: p })
+        models[req.params.table].findAll({ where: p,raw:true })
             .then(function(obj) {
                 res.send({error:false,data:obj});
             })
@@ -56,17 +56,6 @@ let config  = require('../config');
                 res.send({error:error});
             });
     }
-
-    let selectByID = function(req,res)
-    {
-        models[req.params.table].findAll({ where: {id:req.params.id} })
-            .then(function(obj) {
-                res.send({error:false,data:obj});
-            })
-            .catch(function(error){
-                res.send({error:error});
-            });
-    };
 
     let remove = function(req,res)
     {
@@ -84,7 +73,6 @@ let config  = require('../config');
 module.exports = {
     insert,
     remove,
-    selectByID,
     selectBy,
     selectAll,
     update

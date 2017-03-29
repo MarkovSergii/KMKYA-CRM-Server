@@ -21,16 +21,10 @@ var _selectDirectionUsersByUserID = (user_id) =>
             return(error);
         });
 
-var selectDirectionUsersByUserID =  function(req,res)
-{
-    _selectDirectionUsersByUserID(req.params.user_id)
-        .then((ac)=>res.send({error:false,data:ac}))
-        .catch((error) => res.send({error:error}));
-};
+
 
 module.exports = {
     insertDirections,
     deleteDirections,
-    _selectDirectionUsersByUserID,
-    selectDirectionUsersByUserID
+    _selectDirectionUsersByUserID
 };

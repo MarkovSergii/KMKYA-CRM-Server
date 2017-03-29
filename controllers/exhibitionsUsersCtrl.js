@@ -15,14 +15,7 @@ var _selectExhibitionsUsersByUserID = (user_id) =>
             return(error);
         });
 
-var selectExhibitionsUsersByUserID =  function(req,res)
-{
-    _selectExhibitionsUsersByUserID(req.params.user_id)
-        .then((ac)=>res.send({error:false,data:ac}))
-        .catch((error) => res.send({error:error}));
-};
-
 module.exports = {
-    _selectExhibitionsUsersByUserID,
-    selectExhibitionsUsersByUserID
+    _selectExhibitionsUsersByUserID
+
 };

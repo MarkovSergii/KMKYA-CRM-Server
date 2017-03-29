@@ -43,26 +43,8 @@
                 res.send({error:error});
             });
     };
-    var selectAll = function(req,res)
-    {
-        models.Directions.findAll()
-            .then(function(directions) {
-                res.send({error:false,data:directions});
-            })
-            .catch(function(error){
-                res.send({error:error});
-            });
-    };
-    var selectByID = function(req,res)
-    {
-        models.Directions.findAll({ where: {id:req.params.id} })
-            .then(function(directions) {
-                res.send({error:false,data:directions});
-            })
-            .catch(function(error){
-                res.send({error:error});
-            });
-    };
+
+
     var remove = function(req,res)
     {
         models.Exhibitions.update({directions_id:req.body.directions_id},{where:{id:req.params.id}})
@@ -84,6 +66,10 @@
 
 
 
-module.exports = {insert,update,selectAll,selectByID,remove};
+module.exports = {
+    insert,
+    update,
+    remove
+};
 
 
