@@ -58,7 +58,7 @@ module.exports = ({variables,table,insert1,insert2,update,fieldTestUpdate})=> {
 
         it('should return updated second inserted record from '+table, () => {
             return request(variables.app)
-                .get('/api/dictionary/'+table+'/'+Id2+'/select')
+                .get('/api/dictionary/'+table+'/selectBy/id/'+Id2)  
                 .set('Authorization', global._token)
                 .expect(200)
                 .then((response) => {
@@ -89,7 +89,7 @@ module.exports = ({variables,table,insert1,insert2,update,fieldTestUpdate})=> {
 
         it('should return no record from '+table, () => {
             return request(variables.app)
-                .get('/api/dictionary/'+table+'/'+Id1+'/select')
+                .get('/api/dictionary/'+table+'/selectBy/id/'+Id1)
                 .set('Authorization', global._token)
                 .expect(200)
                 .then((response) => {
@@ -100,7 +100,7 @@ module.exports = ({variables,table,insert1,insert2,update,fieldTestUpdate})=> {
         
         it('should return no record from '+table, () => {
             return request(variables.app)
-                .get('/api/dictionary/'+table+'/'+Id2+'/select')
+                .get('/api/dictionary/'+table+'/selectBy/id/'+Id2)
                 .set('Authorization', global._token)
                 .expect(200)
                 .then((response) => {
