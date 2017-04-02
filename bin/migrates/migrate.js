@@ -2,7 +2,7 @@
 const express = require('express')
 const init = require('./initialization')
 const address = require('./list/address')
-
+global.newDatabase = require('../../models/models')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -73,9 +73,9 @@ io.on('connection', function(socket){
    clearConnection();
 
 
-    socket.on('getDirectionList',()=>socket.emit('getDirectionList',directionList));
+   socket.on('getDirectionList',()=>socket.emit('getDirectionList',directionList));
     
-    socket.on('getMigrationList',()=>socket.emit('getMigrationList',migrationList));
+   socket.on('getMigrationList',()=>socket.emit('getMigrationList',migrationList));
 
    socket.on('setDirection',(dirrection)=>{
        currentDirection = dirrection.id;

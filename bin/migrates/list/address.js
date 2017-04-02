@@ -10,5 +10,7 @@ module.exports = ({tables,models,socket})=>{
             .catch((e)=>console.log(e));
     })
 
+    // use newDatabase.Users.findAll({raw: true}) to get data from new database
+    
 
 }
