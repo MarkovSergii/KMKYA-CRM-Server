@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-socket-io/0.7.0/socket.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="app.js"></script>
+</head>
+<body ng-app="migrate">
+
+<div class="container" style="padding-top: 50px" ng-controller="mainCtrl">
+    <div class="row">
+        <div class="col-sm-3">
+
+
+            <select ng-disabled="connected" class="form-control" ng-options="p.name for p in directions"
+                    ng-model="selectedDir"></select>
+
+
+            <button ng-disabled="!selectedDir || connected" class="btn btn-primary btn-block" style="margin-top: 10px;" ng-click="connect(selectedDir)"> Подключится </button>
+
+            <div ng-if="connected">
+                <h5 class="nav-email-subtitle">Вибирите тип миграции</h5>
+
+                <div ng-repeat="migration in migrations">
+                    <button type="button" class="btn btn-block" ng-click="selectMigration(migration.link)" ng-disabled="startMigration" ng-class="{'btn-primary':(migrationType==migration.link)}">
+                        <i class="fa fa-map-marker"></i> {{migration.name}}
+                    </button>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+
+            <!--  statitics -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                           Информация по миграции {{migrationType}}
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- /.row -->
+
+            <div class="panel panel-default" ng-if="startMigration">
+                <div class="panel-heading" >Блок управление миграцией</div>
+
+                <div ng-repeat="migration in migrations">
+                    <div ng-show="migrationType == '{{migration.link}}'" class="panel-body" style="height: 500px">
+                        Panel Content {{migration.name}}
+                        <button ng-click="testGO()"> click testGO</button>
+                    </div>
+                </div>
+
+                <div class="panel-footer">{{migrationStat}}</div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

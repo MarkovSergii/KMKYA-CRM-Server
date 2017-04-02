@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node-dev server.js",
-    "migrate": "node-dev bin/firm_migrate/migrate",
+    "migrate": "node-dev bin/migrates/migrate",
     "test": "mocha"
   },
   "repository": {
